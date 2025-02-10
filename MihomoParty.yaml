@@ -131,7 +131,7 @@ proxy-groups:
     type: url-test
     interval: 600
     tolerance: 50
-  - name: 🇺🇲 美国节点
+  - name: 🇺🇸 美国节点
     include-all: true
     filter: 🇺🇸|US|us|美国|美|America
     type: url-test
