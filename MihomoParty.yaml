@@ -258,7 +258,7 @@ rule-providers:
 rules:
   - RULE-SET,Apple,🍎 苹果服务
   - RULE-SET,Telegram,✉️  Telegram
-  - RULE-SET,OpenAi,🤖 OpenAI
+  - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Spotify,🎵 Spotify
   - RULE-SET,Bahamut,📺 Bahamut
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
