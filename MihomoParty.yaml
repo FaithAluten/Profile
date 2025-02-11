@@ -137,14 +137,13 @@ proxy-groups:
   - name: 🇺🇸 美国节点
     type: url-test 
     include-all: true
-    filter: 🇺🇸|US|us|美国|美|America
+    filter: (?i)🇺🇸|US|us|美国|美|America
     interval: 600
     tolerance: 50
   - name: 🇸🇬 狮城节点
     type: url-test
     include-all: true
     filter: (?i)🇸🇬|SG|sg|新加坡|狮|Singapore
-    type: url-test
     interval: 600
     tolerance: 50
   - name: 🇭🇰 香港节点
@@ -168,91 +167,91 @@ proxy-groups:
 
 rule-providers:
   Apple:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml
     path: ./ruleset/Apple.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Telegram:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
     path: ./ruleset/Telegram.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   OpenAI:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
     path: ./ruleset/OpenAI.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Spotify:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
     path: ./ruleset/Spotify.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Bahamut:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bahamut/Bahamut.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Bahamut/Bahamut.yaml
     path: ./ruleset/Bahamut.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Microsoft:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Microsoft.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Microsoft.yaml
     path: ./ruleset/Microsoft.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Game:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Game.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Game.yaml
     path: ./ruleset/Game.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   GlobalMedia:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
     path: ./ruleset/GlobalMedia.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   ProxyLite:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
     path: ./ruleset/ProxyLite.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Direct:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Direct/Direct.yaml
     path: ./ruleset/Direct.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   Lan:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Lan/Lan.yaml
     path: ./ruleset/Lan.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http   
   Download:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
+    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Download/Download.yaml
     path: ./ruleset/Download.yaml
     behavior: classical
     interval: 86400
     format: yaml
     type: http
   ChinaIP:
-    url: https://ghp.ci/https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
+    url: https://raw.githubusercontent.com/soffchen/GeoIP2-CN/release/clash-rule-provider.yml
     path: ./ruleset/ChinaIP.yaml
     behavior: ipcidr
     interval: 86400
