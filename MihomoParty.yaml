@@ -8,6 +8,8 @@ proxy-groups:
       - 🇺🇸 美国节点
       - 🇸🇬 狮城节点
       - 🇭🇰 香港节点
+      - 🇵🇱 波兰节点
+      - 🇩🇪 德国节点        
       - DIRECT
   - name: 🚀 手动切换
     type: select
