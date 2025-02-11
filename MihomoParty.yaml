@@ -208,6 +208,13 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
+  Google:
+    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
+    path: ./ruleset/Google.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
   GitHub:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
     path: ./ruleset/GitHub.yaml
@@ -272,6 +279,7 @@ rules:
   - RULE-SET,Spotify,🎵 Spotify
   - RULE-SET,Bahamut,📺 Bahamut
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
+  - RULE-SET,Google,🌏 全球加速
   - RULE-SET,GitHub,🌏 全球加速
   - RULE-SET,Game,🎮 游戏平台
   - RULE-SET,ProxyLite,🌏 全球加速
