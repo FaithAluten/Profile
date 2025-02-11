@@ -1,0 +1,530 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "cache_file": {
+      "enabled": true,
+      "store_fakeip": false,
+      "store_rdrc": false
+    },
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "dashboard",
+      "external_ui_download_url": "https://gh-proxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct",
+      "secret": "",
+      "default_mode": "rule"
+    }
+  },
+  "dns": {
+    "servers": [
+      {
+        "tag": "proxyDNS",
+        "address": "tls://8.8.8.8",
+	      "detour": "🚀 节点选择"
+      },
+      {
+        "tag": "localDNS",
+        "address": "223.5.5.5",
+        "detour": "direct"
+      }
+    ],
+    "rules": [
+      {
+        "outbound": "any",
+        "server": "localDNS"
+      },
+      {
+        "clash_mode": "direct",
+        "server": "localDNS"
+      },
+      {
+        "clash_mode": "global",
+        "server": "proxyDNS"
+      },
+      {
+        "rule_set": "geosite-geolocation-cn",
+        "server": "localDNS"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "server": "proxyDNS"
+      },
+      {
+        "domain": [
+          "cdn.jsdelivr.net"
+        ],
+        "server": "proxyDNS"
+      }
+    ],
+    "final": "localDNS",
+    "strategy": "ipv4_only"
+  },
+  "inbounds": [
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "interface_name": "sing-box",
+      "address": [
+        "172.18.0.1/30"
+      ],
+      "mtu": 9000,
+      "auto_route": true,
+      "strict_route": false,
+      "stack": "system"
+    }
+  ],
+  "outbounds": [
+    {
+      "type": "direct",
+      "tag": "direct"
+    },
+    {
+      "tag":"🚀 节点选择",
+      "type":"selector",
+      "outbounds":[
+        "♻️ 自动选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "♻️ 自动选择",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🚀 手动切换",
+      "type":"selector",
+      "outbounds":[
+        "{all}"
+      ],
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"♻️ 自动选择",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"exclude","keywords":["网站|地址|剩余|套餐|到期|过期|时间|有效"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag":"🍎 苹果服务",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "direct",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"✉️  Telegram",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🇸🇬 狮城节点",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🤖 OpenAI",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🇺🇸 美国节点",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🎵 Spotify",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🇸🇬 狮城节点",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"📺 Bahamut",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🇭🇰 香港节点",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🌌 微软云盘",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🚀 节点选择",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🇨🇳 微软中国",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "direct",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"Ⓜ️ 微软服务",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🚀 节点选择",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🎮 游戏平台",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "direct",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🌏 全球加速",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🚀 节点选择",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🐟 兜底分流",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+        "🇯🇵 日本节点",
+        "🇺🇸 美国节点",
+        "🇸🇬 狮城节点",
+        "🇭🇰 香港节点",
+        "direct"
+      ],
+      "default": "🚀 节点选择",
+      "interrupt_exist_connections": true
+    },
+    {
+      "tag":"🇯🇵 日本节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇯🇵|JP|jp|日本|日|Japan"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    },
+    {
+      "tag":"🇺🇸 美国节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇺🇸|US|us|美国|美|America"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    },
+    {
+      "tag":"🇸🇬 狮城节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇸🇬|SG|sg|新加坡|狮|Singapore"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    },
+    {
+      "tag":"🇭🇰 香港节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇭🇰|HK|hk|香港|港|HongKong"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    }
+  ],
+  "route": {
+    "auto_detect_interface": true,
+    "final": "🐟 兜底分流",
+    "rules": [
+      {
+        "action": "sniff"
+      },      
+      {
+        "protocol": "dns",
+        "action": "hijack-dns"
+      },
+      {
+        "clash_mode": "direct",
+        "outbound": "direct"
+      },
+      {
+        "clash_mode": "global",
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "domain": [
+          "clash.razord.top",
+          "yacd.metacubex.one",
+          "yacd.haishan.me",
+          "d.metacubex.one"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain": [
+          "store.steampowered.com",
+          "steamcommunity.com"
+        ],
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "domain_suffix": [
+          "amd.com"
+        ],
+        "outbound": "direct"
+      },
+      {
+        "domain_suffix": [
+          "office.net"
+        ],
+        "outbound": "🚀 节点选择"
+      },
+      {
+        "ip_is_private": true,
+        "outbound": "direct"
+      },
+      {
+        "rule_set": ["geoip-apple","geosite-geolocation-apple"],
+        "outbound": "🍎 苹果服务"
+      },
+      {
+        "rule_set": "geosite-geolocation-telegram",
+        "outbound": "✉️  Telegram"
+      },
+      {
+        "rule_set": "geosite-geolocation-openai",
+        "outbound": "🤖 OpenAI"
+      },
+      {
+        "rule_set": "geosite-geolocation-spotify",
+        "outbound": "🎵 Spotify"
+      },
+      {
+        "rule_set": "geosite-geolocation-bahamut",
+        "outbound": "📺 Bahamut"
+      },
+      {
+        "rule_set": "geosite-geolocation-onedrive",
+        "outbound": "🌌 微软云盘"
+      },
+      {
+        "rule_set": "geosite-geolocation-microsoft@cn",
+        "outbound": "🇨🇳 微软中国"
+      },
+      {
+        "rule_set": "geosite-geolocation-microsoft",
+        "outbound": "Ⓜ️ 微软服务"
+      },
+      {
+        "rule_set": "geosite-category-games",
+        "outbound": "🎮 游戏平台"
+      },
+      {
+        "rule_set": "geosite-geolocation-!cn",
+        "outbound": "🌏 全球加速"
+      },
+      {
+        "rule_set": ["geoip-cn", "geosite-geolocation-cn"],
+        "outbound": "direct"
+      }
+    ],
+    "rule_set": [
+      {
+        "tag": "geoip-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-apple",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-openai",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/spotify.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-bahamut",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bahamut.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-onedrive",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/onedrive.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-microsoft@cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft@cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-microsoft",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-category-games",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-!cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite-geolocation-cn",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
+        "download_detour": "direct"
+      }
+    ]
+  }
+}
