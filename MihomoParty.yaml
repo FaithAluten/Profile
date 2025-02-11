@@ -30,7 +30,7 @@ proxy-groups:
       - 🇭🇰 香港节点
       - 🇵🇱 波兰节点
       - 🇩🇪 德国节点      
-  - name: ✉️  Telegram
+  - name: ✉️ Telegram
     type: select
     proxies:
       - 🇸🇬 狮城节点
@@ -259,7 +259,7 @@ rule-providers:
 
 rules:
   - RULE-SET,Apple,🍎 苹果服务
-  - RULE-SET,Telegram,✉️  Telegram
+  - RULE-SET,Telegram,✉️ Telegram
   - RULE-SET,OpenAI,🤖 OpenAI
   - RULE-SET,Spotify,🎵 Spotify
   - RULE-SET,Bahamut,📺 Bahamut
