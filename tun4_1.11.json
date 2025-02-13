@@ -24,7 +24,7 @@
       {
         "tag": "proxyDNS",
         "address": "tls://8.8.8.8",
-	      "detour": "🚀 节点选择"
+	"detour": "🚀 节点选择"
       },
       {
         "tag": "localDNS",
@@ -60,7 +60,7 @@
         "server": "proxyDNS"
       }
     ],
-    "final": "localDNS",
+    "final": "proxylDNS",
     "strategy": "ipv4_only"
   },
   "inbounds": [
@@ -73,37 +73,27 @@
       ],
       "mtu": 9000,
       "auto_route": true,
-      "strict_route": false,
+      "strict_route": true,
       "stack": "system"
     }
   ],
   "outbounds": [
-    {
-      "type": "direct",
-      "tag": "direct"
-    },
     {
       "tag":"🚀 节点选择",
       "type":"selector",
       "outbounds":[
         "♻️ 自动选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "♻️ 自动选择",
-      "interrupt_exist_connections": true
-    },
-    {
-      "tag":"🚀 手动切换",
-      "type":"selector",
-      "outbounds":[
-        "{all}"
-      ],
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"♻️ 自动选择",
@@ -120,64 +110,29 @@
       "interrupt_exist_connections": false
     },
     {
+      "tag":"🚀 手动切换",
+      "type":"selector",
+      "outbounds":[
+        "{all}"
+      ],
+      "interrupt_exist_connections": false
+    },
+    {
       "tag":"🍎 苹果服务",
       "type":"selector",
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "direct",
-      "interrupt_exist_connections": true
-    },
-    {
-      "tag":"✉️  Telegram",
-      "type":"selector",
-      "outbounds":[
-        "🚀 节点选择",
-        "🚀 手动切换",
-        "🇯🇵 日本节点",
-        "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
-        "direct"
-      ],
-      "default": "🇸🇬 狮城节点",
-      "interrupt_exist_connections": true
-    },
-    {
-      "tag":"🤖 OpenAI",
-      "type":"selector",
-      "outbounds":[
-        "🚀 节点选择",
-        "🚀 手动切换",
-        "🇯🇵 日本节点",
-        "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
-        "direct"
-      ],
-      "default": "🇺🇸 美国节点",
-      "interrupt_exist_connections": true
-    },
-    {
-      "tag":"🎵 Spotify",
-      "type":"selector",
-      "outbounds":[
-        "🚀 节点选择",
-        "🚀 手动切换",
-        "🇯🇵 日本节点",
-        "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
-        "direct"
-      ],
-      "default": "🇸🇬 狮城节点",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"📺 Bahamut",
@@ -185,29 +140,84 @@
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "🇭🇰 香港节点",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
-      "tag":"🌌 微软云盘",
+      "tag":"🎵 Spotify",
       "type":"selector",
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
+        "direct"
+      ],
+      "default": "🇸🇬 狮城节点",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag":"✉️  Telegram",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+	"🇭🇰 香港节点",
+        "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
+        "🇺🇸 美国节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
+        "direct"
+      ],
+      "default": "🇸🇬 狮城节点",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag":"🤖 OpenAI",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+	"🇭🇰 香港节点",
+        "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
+        "🇺🇸 美国节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
+        "direct"
+      ],
+      "default": "🇺🇸 美国节点",
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag":"🌌 谷歌服务",
+      "type":"selector",
+      "outbounds":[
+        "🚀 节点选择",
+        "🚀 手动切换",
+	"🇭🇰 香港节点",
+        "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
+        "🇺🇸 美国节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "🚀 节点选择",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"🇨🇳 微软中国",
@@ -215,14 +225,16 @@
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "direct",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"Ⓜ️ 微软服务",
@@ -230,14 +242,16 @@
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "🚀 节点选择",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"🎮 游戏平台",
@@ -245,14 +259,16 @@
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "direct",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
       "tag":"🌏 全球加速",
@@ -260,29 +276,46 @@
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "🚀 节点选择",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
     },
     {
-      "tag":"🐟 兜底分流",
+      "tag":"🐟 漏网之鱼",
       "type":"selector",
       "outbounds":[
         "🚀 节点选择",
         "🚀 手动切换",
+	"🇭🇰 香港节点",
         "🇯🇵 日本节点",
+	"🇸🇬 狮城节点",
         "🇺🇸 美国节点",
-        "🇸🇬 狮城节点",
-        "🇭🇰 香港节点",
+	"🇩🇪 德国节点",
+	"🇵🇱 波兰节点",
         "direct"
       ],
       "default": "🚀 节点选择",
-      "interrupt_exist_connections": true
+      "interrupt_exist_connections": false
+    },
+    {
+      "tag":"🇭🇰 香港节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇭🇰|HK|hk|香港|港|HongKong"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
     },
     {
       "tag":"🇯🇵 日本节点",
@@ -292,19 +325,6 @@
       ],
       "filter":[
         {"action":"include","keywords":["🇯🇵|JP|jp|日本|日|Japan"]}
-      ],
-      "url": "http://www.gstatic.com/generate_204",
-      "interval": "10m",
-      "idle_timeout": "30m"
-    },
-    {
-      "tag":"🇺🇸 美国节点",
-      "type":"urltest",
-      "outbounds":[
-        "{all}"
-      ],
-      "filter":[
-        {"action":"include","keywords":["🇺🇸|US|us|美国|美|America"]}
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
@@ -324,28 +344,68 @@
       "idle_timeout": "30m"
     },
     {
-      "tag":"🇭🇰 香港节点",
+      "tag":"🇺🇸 美国节点",
       "type":"urltest",
       "outbounds":[
         "{all}"
       ],
       "filter":[
-        {"action":"include","keywords":["🇭🇰|HK|hk|香港|港|HongKong"]}
+        {"action":"include","keywords":["🇺🇸|US|us|美国|美|America"]}
       ],
       "url": "http://www.gstatic.com/generate_204",
       "interval": "10m",
       "idle_timeout": "30m"
+    },
+    {
+      "tag":"🇩🇪 德国节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇩🇪|DE|de|德国|德|Germany"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    },
+    {
+      "tag":"🇵🇱 波兰节点",
+      "type":"urltest",
+      "outbounds":[
+        "{all}"
+      ],
+      "filter":[
+        {"action":"include","keywords":["🇵🇱|PL|pl|波兰|Poland"]}
+      ],
+      "url": "http://www.gstatic.com/generate_204",
+      "interval": "10m",
+      "idle_timeout": "30m"
+    },
+    {
+      "type": "direct",
+      "tag": "direct"
     }
   ],
   "route": {
     "auto_detect_interface": true,
-    "final": "🐟 兜底分流",
+    "final": "🐟 漏网之鱼",
     "rules": [
       {
+	"inbound": ["tun-in", "mixed-in"],
         "action": "sniff"
       },      
       {
-        "protocol": "dns",
+        "type": "logical",
+        "mode": "or",
+        "rules":[
+          {
+            "port":53
+          },
+          {
+            "protocol": "dns"
+          }
+        ],
         "action": "hijack-dns"
       },
       {
@@ -385,15 +445,29 @@
         "outbound": "🚀 节点选择"
       },
       {
+        "domain_keyword": [
+          "tracker"
+        ],
+        "outbound": "direct"
+      },
+      {
         "ip_is_private": true,
         "outbound": "direct"
       },
       {
-        "rule_set": ["geoip-apple","geosite-geolocation-apple"],
+        "rule_set": ["geoip_apple","geosite_apple"],
         "outbound": "🍎 苹果服务"
       },
       {
-        "rule_set": "geosite-geolocation-telegram",
+        "rule_set": "geosite_bahamut",
+        "outbound": "📺 Bahamut"
+      },
+      {
+        "rule_set": "geosite_spotify",
+        "outbound": "🎵 Spotify"
+      },
+      {
+        "rule_set": ["geoip_telegram","geosite_telegram"],
         "outbound": "✉️  Telegram"
       },
       {
@@ -401,125 +475,187 @@
         "outbound": "🤖 OpenAI"
       },
       {
-        "rule_set": "geosite-geolocation-spotify",
-        "outbound": "🎵 Spotify"
+        "rule_set": ["geoip_google","geosite_google","geosite_youtube"],
+        "outbound": "🌌 谷歌服务"
       },
       {
-        "rule_set": "geosite-geolocation-bahamut",
-        "outbound": "📺 Bahamut"
-      },
-      {
-        "rule_set": "geosite-geolocation-onedrive",
-        "outbound": "🌌 微软云盘"
-      },
-      {
-        "rule_set": "geosite-geolocation-microsoft@cn",
+        "rule_set": "geosite_microsoft@cn",
         "outbound": "🇨🇳 微软中国"
       },
       {
-        "rule_set": "geosite-geolocation-microsoft",
+        "rule_set": ["geoip_onedrive","geosite_microsoft"],
         "outbound": "Ⓜ️ 微软服务"
       },
       {
-        "rule_set": "geosite-category-games",
+        "rule_set": "geosite_category-games",
         "outbound": "🎮 游戏平台"
       },
       {
-        "rule_set": "geosite-geolocation-!cn",
+        "rule_set": ["geosite_github","geoip_twitter","geosite_twitter","geoip_facebook","geosite_proxymedia","geosite_proxy","geosite_geolocation-!cn"],
         "outbound": "🌏 全球加速"
       },
       {
-        "rule_set": ["geoip-cn", "geosite-geolocation-cn"],
+        "rule_set": ["geoip_cn", "geosite_cn"],
         "outbound": "direct"
       }
     ],
     "rule_set": [
       {
-        "tag": "geoip-apple",
+        "tag": "geoip_apple",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/apple.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-apple",
+        "tag": "geosite_apple",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/apple.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/apple.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-telegram",
+        "tag": "geosite_bahamut",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/telegram.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/bahamut.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-openai",
+        "tag": "geosite_spotify",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/spotify.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip_telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_telegram",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/telegram.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_openai",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/openai.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-spotify",
+        "tag": "geoip_google",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/spotify.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/google.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-bahamut",
+        "tag": "geosite_google",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/bahamut.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/google.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-onedrive",
+        "tag": "geosite_youtube",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/onedrive.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/youtube.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-microsoft@cn",
+        "tag": "geosite_microsoft@cn",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft@cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-microsoft",
+        "tag": "geosite_onedrive",
         "type": "remote",
         "format": "binary",
-        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/microsoft.srs",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/onedrive.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-category-games",
+        "tag": "geosite_microsoft",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/microsoft.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_category-games",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/category-games.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-!cn",
+        "tag": "geosite_github",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/github.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip_twitter",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/twitter.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_twitter",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/twitter.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geoip_facebook",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geoip/facebook.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_proxymedia",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/proxymedia.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_proxy",
+        "type": "remote",
+        "format": "binary",
+        "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo-lite/geosite/proxy.srs",
+        "download_detour": "direct"
+      },
+      {
+        "tag": "geosite_geolocation-!cn",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geoip-cn",
+        "tag": "geoip_cn",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geoip/cn.srs",
         "download_detour": "direct"
       },
       {
-        "tag": "geosite-geolocation-cn",
+        "tag": "geosite_cn",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/cn.srs",
