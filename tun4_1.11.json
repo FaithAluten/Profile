@@ -46,11 +46,11 @@
         "server": "proxyDNS"
       },
       {
-        "rule_set": "geosite-geolocation-cn",
+        "rule_set": "geosite_cn",
         "server": "localDNS"
       },
       {
-        "rule_set": "geosite-geolocation-!cn",
+        "rule_set": "geosite_!cn",
         "server": "proxyDNS"
       },
       {
@@ -491,7 +491,7 @@
         "outbound": "🎮 游戏平台"
       },
       {
-        "rule_set": ["geosite_github","geoip_twitter","geosite_twitter","geoip_facebook","geosite_proxymedia","geosite_proxy","geosite_geolocation-!cn"],
+        "rule_set": ["geosite_github","geoip_twitter","geosite_twitter","geoip_facebook","geosite_proxymedia","geosite_proxy","geosite_!cn"],
         "outbound": "🌏 全球加速"
       },
       {
@@ -641,7 +641,7 @@
         "download_detour": "direct"
       },
       {
-        "tag": "geosite_geolocation-!cn",
+        "tag": "geosite_!cn",
         "type": "remote",
         "format": "binary",
         "url": "https://cdn.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@sing/geo/geosite/geolocation-!cn.srs",
