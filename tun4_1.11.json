@@ -483,7 +483,7 @@
         "outbound": "🇨🇳 微软中国"
       },
       {
-        "rule_set": ["geoip_onedrive","geosite_microsoft"],
+        "rule_set": ["geosite_onedrive","geosite_microsoft"],
         "outbound": "Ⓜ️ 微软服务"
       },
       {
