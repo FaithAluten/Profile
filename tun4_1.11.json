@@ -60,7 +60,7 @@
         "server": "proxyDNS"
       }
     ],
-    "final": "proxylDNS",
+    "final": "proxyDNS",
     "strategy": "ipv4_only"
   },
   "inbounds": [
