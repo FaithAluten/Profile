@@ -471,7 +471,7 @@
         "outbound": "✉️  Telegram"
       },
       {
-        "rule_set": "geosite-geolocation-openai",
+        "rule_set": "geosite_openai",
         "outbound": "🤖 OpenAI"
       },
       {
