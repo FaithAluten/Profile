@@ -298,6 +298,8 @@ rules:
   - RULE-SET,Microsoft,Ⓜ️ 微软服务
   - RULE-SET,Google,🌏 全球加速
   - RULE-SET,GitHub,🌏 全球加速
+  - DOMAIN,store.steampowered.com,🌏 全球加速
+  - DOMAIN,steamcommunity.com,🌏 全球加速
   - RULE-SET,Game,🎮 游戏平台
   - RULE-SET,ProxyLite,🌏 全球加速
   - RULE-SET,Direct,DIRECT
