@@ -1,186 +1,205 @@
 proxy-groups:
-  - name: 🚀 节点选择
+  - name: 节点选择
     type: select
     proxies:
-      - ♻️ 自动选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
+      - 自动选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 🚀 手动切换
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
+  - name: 手动切换
     type: select
     include-all: true
-  - name: ♻️ 自动选择
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
+  - name: 自动选择
     type: url-test
     include-all: true
     filter: "^(?!.*(剩余|到期)).*$"
     interval: 600
     tolerance: 50
-  - name: 🍎 苹果服务
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning(2).png
+  - name: 苹果服务
     type: select
     proxies:
       - DIRECT
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点   
-  - name: ✉️ Telegram
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/apple(1).png
+  - name: Bahamut
     type: select
     proxies:
-      - 🇸🇬 狮城节点
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点 
+      - 香港节点
+      - 节点选择
+      - 手动切换
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 🤖 OpenAI
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/bahamute.png
+  - name: Spotify
     type: select
     proxies:
-      - 🇺🇸 美国节点
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
+      - 狮城节点
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 🎵 Spotify
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
+  - name: Telegram
     type: select
     proxies:
-      - 🇸🇬 狮城节点
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
+      - 狮城节点
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 📺 Bahamut
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(1).png
+  - name: OpenAI
     type: select
     proxies:
-      - 🇭🇰 香港节点
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点    
+      - 美国节点
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: Ⓜ️ 微软服务
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ChatGPT-green.png
+  - name: 微软服务
     type: select
     proxies:
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点    
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点    
       - DIRECT
-  - name: 🎮 游戏平台
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/microsoft.png
+  - name: 游戏平台
     type: select
     proxies:
       - DIRECT
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
-  - name: 🌏 全球加速
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/game.png
+  - name: 全球加速
     type: select
     proxies:
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 🐟 兜底分流
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(1).png
+  - name: 兜底分流
     type: select
     proxies:
-      - 🚀 节点选择
-      - 🚀 手动切换
-      - 🇭🇰 香港节点
-      - 🇹🇼 台湾节点
-      - 🇯🇵 日本节点
-      - 🇸🇬 狮城节点
-      - 🇺🇸 美国节点
-      - 🇵🇱 波兰节点
-      - 🇩🇪 德国节点
+      - 节点选择
+      - 手动切换
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 波兰节点
+      - 德国节点
       - DIRECT
-  - name: 🇯🇵 日本节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/dog.png
+  - name: 日本节点
     type: url-test
     include-all: true
     filter: (?i)🇯🇵|JP|jp|日本|日|Japan
     interval: 600
     tolerance: 50
-  - name: 🇺🇸 美国节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/zl-icon-jp-flag.png
+  - name: 美国节点
     type: url-test 
     include-all: true
     filter: (?i)🇺🇸|US|us|美国|美|America
     interval: 600
     tolerance: 50
-  - name: 🇸🇬 狮城节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/US.png
+  - name: 狮城节点
     type: url-test
     include-all: true
     filter: (?i)🇸🇬|SG|sg|新加坡|狮|Singapore
     interval: 600
     tolerance: 50
-  - name: 🇭🇰 香港节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/singapore(1).png
+  - name: 香港节点
     type: url-test
     include-all: true
     filter: (?i)🇭🇰|HK|hk|香港|港|Hong Kong
     interval: 600
     tolerance: 50
-  - name: 🇹🇼 台湾节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Hongkong.png
+  - name: 台湾节点
     type: url-test
     include-all: true
     filter: (?i)🇹🇼|TW|tw|台湾|台|Taiwan
     interval: 600
     tolerance: 50
-  - name: 🇵🇱 波兰节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/taiwan(3).png
+  - name: 波兰节点
     type: url-test
     include-all: true
     filter: (?i)🇵🇱|PL|PL|波兰|Poland
     interval: 600
     tolerance: 50
-  - name: 🇩🇪 德国节点
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Poland.png
+  - name: 德国节点
     type: url-test
     include-all: true
     filter: (?i)🇩🇪|DE|de|德国|德|Germany
     interval: 600
     tolerance: 50
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Germany(1).png
 
 rule-providers:
   Apple:
@@ -290,20 +309,20 @@ rule-providers:
     type: http
 
 rules:
-  - RULE-SET,Apple,🍎 苹果服务
-  - RULE-SET,Telegram,✉️ Telegram
-  - RULE-SET,OpenAI,🤖 OpenAI
-  - RULE-SET,Spotify,🎵 Spotify
-  - RULE-SET,Bahamut,📺 Bahamut
-  - RULE-SET,Microsoft,Ⓜ️ 微软服务
-  - RULE-SET,Google,🌏 全球加速
-  - RULE-SET,GitHub,🌏 全球加速
-  - DOMAIN,store.steampowered.com,🌏 全球加速
-  - DOMAIN,steamcommunity.com,🌏 全球加速
-  - RULE-SET,Game,🎮 游戏平台
-  - RULE-SET,ProxyLite,🌏 全球加速
+  - RULE-SET,Apple,苹果服务
+  - RULE-SET,Telegram,Telegram
+  - RULE-SET,OpenAI,OpenAI
+  - RULE-SET,Spotify,Spotify
+  - RULE-SET,Bahamut,Bahamut
+  - RULE-SET,Microsoft,微软服务
+  - RULE-SET,Google,全球加速
+  - RULE-SET,GitHub,全球加速
+  - DOMAIN,store.steampowered.com,全球加速
+  - DOMAIN,steamcommunity.com,全球加速
+  - RULE-SET,Game,游戏平台
+  - RULE-SET,ProxyLite,全球加速
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
   - GEOIP,CN,DIRECT
-  - MATCH,🐟 兜底分流
+  - MATCH,兜底分流
