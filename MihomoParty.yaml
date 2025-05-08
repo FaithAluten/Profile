@@ -201,6 +201,20 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Germany(1).png
 
 rule-providers:
+  Liqiye_Direct:
+    url: https://raw.githubusercontent.com/FaithAluten/QuantumultX/refs/heads/main/rule/clash/Direct.yaml
+    path: ./ruleset/Liqiye_Direct.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
+  Liqiye_GFW:
+    url: https://raw.githubusercontent.com/FaithAluten/QuantumultX/refs/heads/main/rule/clash/GFW.yaml
+    path: ./ruleset/Liqiye_GFW.yaml
+    behavior: classical
+    interval: 86400
+    format: yaml
+    type: http
   Apple:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Apple/Apple_Classical.yaml
     path: ./ruleset/Apple.yaml
@@ -308,6 +322,8 @@ rule-providers:
     type: http
 
 rules:
+  - RULE-SET,Liqiye_Direct,DIRECT
+  - RULE-SET,Liqiye_GFW,全球加速
   - RULE-SET,Apple,苹果服务
   - RULE-SET,Telegram,Telegram
   - RULE-SET,OpenAI,OpenAI
@@ -316,8 +332,6 @@ rules:
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,Google,全球加速
   - RULE-SET,GitHub,全球加速
-  - DOMAIN,store.steampowered.com,全球加速
-  - DOMAIN,steamcommunity.com,全球加速
   - RULE-SET,Game,游戏平台
   - RULE-SET,ProxyLite,全球加速
   - RULE-SET,Direct,DIRECT
