@@ -331,6 +331,7 @@ rules:
   - RULE-SET,Bahamut,Bahamut
   - DOMAIN-SUFFIX,acgrip.com,Bahamut
   - DOMAIN-SUFFIX,popgo.org,Bahamut
+  - DOMAIN-SUFFIX,acgnx.se,Bahamut
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,Google,全球加速
   - RULE-SET,GitHub,全球加速
