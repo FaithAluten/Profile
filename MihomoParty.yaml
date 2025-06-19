@@ -329,6 +329,7 @@ rules:
   - RULE-SET,OpenAI,OpenAI
   - RULE-SET,Spotify,Spotify
   - RULE-SET,Bahamut,Bahamut
+  - DOMAIN-SUFFIX,acgrip.com,Bahamut
   - RULE-SET,Microsoft,微软服务
   - RULE-SET,Google,全球加速
   - RULE-SET,GitHub,全球加速
