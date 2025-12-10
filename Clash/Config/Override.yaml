@@ -62,58 +62,6 @@ proxy-groups:
       - 德国节点
       - DIRECT
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
-  - name: Telegram
-    type: select
-    proxies:
-      - 狮城节点
-      - 节点选择
-      - 手动切换
-      - 香港节点
-      - 台湾节点
-      - 日本节点
-      - 美国节点
-      - 德国节点
-      - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/telegram(1).png
-  - name: YouTube
-    type: select
-    proxies:
-      - 美国节点
-      - 节点选择
-      - 手动切换
-      - 香港节点
-      - 台湾节点
-      - 日本节点
-      - 狮城节点
-      - 德国节点
-      - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/youtube.png
-  - name: OpenAI
-    type: select
-    proxies:
-      - 美国节点
-      - 节点选择
-      - 手动切换
-      - 香港节点
-      - 台湾节点
-      - 日本节点
-      - 狮城节点
-      - 德国节点
-      - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/ChatGPT-green.png
-  - name: 微软服务
-    type: select
-    proxies:
-      - 节点选择
-      - 手动切换
-      - 香港节点
-      - 台湾节点
-      - 日本节点
-      - 狮城节点
-      - 美国节点
-      - 德国节点    
-      - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/microsoft.png
   - name: 游戏平台
     type: select
     proxies:
@@ -218,27 +166,6 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
-  Telegram:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Telegram/Telegram.yaml
-    path: ./ruleset/Telegram.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  YouTube:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/YouTube/YouTube.yaml
-    path: ./ruleset/YouTube.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  OpenAI:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/OpenAI/OpenAI.yaml
-    path: ./ruleset/OpenAI.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
   Spotify:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Spotify/Spotify.yaml
     path: ./ruleset/Spotify.yaml
@@ -253,44 +180,9 @@ rule-providers:
     interval: 86400
     format: yaml
     type: http
-  Microsoft:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Microsoft/Microsoft.yaml
-    path: ./ruleset/Microsoft.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  Google:
-    url: https://ghp.ci/https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Google/Google.yaml
-    path: ./ruleset/Google.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  GitHub:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GitHub/GitHub.yaml
-    path: ./ruleset/GitHub.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
   Game:
     url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/Game/Game.yaml
     path: ./ruleset/Game.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  GlobalMedia:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/GlobalMedia/GlobalMedia_Classical.yaml
-    path: ./ruleset/GlobalMedia.yaml
-    behavior: classical
-    interval: 86400
-    format: yaml
-    type: http
-  ProxyLite:
-    url: https://raw.githubusercontent.com/blackmatrix7/ios_rule_script/master/rule/Clash/ProxyLite/ProxyLite.yaml
-    path: ./ruleset/ProxyLite.yaml
     behavior: classical
     interval: 86400
     format: yaml
@@ -328,19 +220,9 @@ rules:
   - RULE-SET,Liqiye_Direct,DIRECT
   - RULE-SET,Liqiye_GFW,全球加速
   - RULE-SET,Apple,苹果服务
-  - RULE-SET,Telegram,Telegram
-  - RULE-SET,YouTube,YouTube
-  - RULE-SET,OpenAI,OpenAI
-  - RULE-SET,Spotify,Spotify
   - RULE-SET,Bahamut,Bahamut
-  - DOMAIN-SUFFIX,acgrip.com,Bahamut
-  - DOMAIN-SUFFIX,popgo.org,Bahamut
-  - DOMAIN-SUFFIX,acgnx.se,Bahamut
-  - RULE-SET,Microsoft,微软服务
-  - RULE-SET,Google,全球加速
-  - RULE-SET,GitHub,全球加速
+  - RULE-SET,Spotify,Spotify
   - RULE-SET,Game,游戏平台
-  - RULE-SET,ProxyLite,全球加速
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Download,DIRECT
