@@ -11,8 +11,9 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - DIRECT
+      - REJECT
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
-  - name: 手动切换
+  - name: 手动选择
     type: select
     include-all: true
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
@@ -20,6 +21,7 @@ proxy-groups:
     type: url-test
     include-all: true
     filter: "^(?!.*(剩余|到期)).*$"
+    url: 'http://cp.cloudflare.com/generate_204'
     interval: 600
     tolerance: 50
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning(2).png
@@ -101,6 +103,20 @@ proxy-groups:
       - 德国节点
       - DIRECT
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/dog.png
+  - name: 香港节点
+    type: url-test
+    include-all: true
+    filter: (?i)🇭🇰|HK|hk|香港|港|Hong Kong
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Hongkong.png
+  - name: 台湾节点
+    type: url-test
+    include-all: true
+    filter: (?i)🇹🇼|TW|tw|台湾|台|Taiwan
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/taiwan(3).png
   - name: 日本节点
     type: url-test
     include-all: true
@@ -122,20 +138,7 @@ proxy-groups:
     interval: 600
     tolerance: 50
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/singapore(1).png
-  - name: 香港节点
-    type: url-test
-    include-all: true
-    filter: (?i)🇭🇰|HK|hk|香港|港|Hong Kong
-    interval: 600
-    tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Hongkong.png
-  - name: 台湾节点
-    type: url-test
-    include-all: true
-    filter: (?i)🇹🇼|TW|tw|台湾|台|Taiwan
-    interval: 600
-    tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/taiwan(3).png
+
   - name: 德国节点
     type: url-test
     include-all: true
