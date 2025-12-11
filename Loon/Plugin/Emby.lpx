@@ -1,0 +1,12 @@
+#!name = embyUnlocked
+#!desc = Emby破解
+#!system = iOS,iPadOS,tvOS,macOS
+#!system_version = 
+#!loon_version = 3.3.2(877)
+#!icon = https://raw.githubusercontent.com/Tartarus2014/For-own-use/master/Color/EMBY.png
+
+[Script]
+http-response ^https?:\/\/mb3admin.com\/admin\/service\/registration\/validateDevice requires-body=true, script-path=https://raw.githubusercontent.com/Tartarus2014/Script/master/Emby.js, tag=embyUnlocked
+
+[MITM]
+hostname = mb3admin.com
