@@ -1,0 +1,84 @@
+[General]
+ip-mode = v4-only
+ipv6-vif=off
+dns-server = system
+sni-sniffing = true
+disable-stun = true
+dns-reject-mode=LoopbackIP
+domain-reject-mode=DNS
+udp-fallback-mode=REJECT
+wifi-access-http-port = 7222
+wifi-access-socks5-port = 7221
+allow-wifi-access = false
+interface-mode = auto
+test-timeout=5
+disconnect-on-policy-change=false
+internet-test-url=http://connectivitycheck.platform.hicloud.com/generate_204
+proxy-test-url=http://www.gstatic.com/generate_204
+resource-parser=https://raw.githubusercontent.com/sub-store-org/Sub-Store/release/sub-store-parser.loon.min.js
+geoip-url=https://geodata.kelee.one/Country-Masaiki.mmdb
+ipasn-url=https://geodata.kelee.one/GeoLite2-ASN-P3TERX.mmdb
+skip-proxy = 192.168.0.0/16,10.0.0.0/8,172.16.0.0/12,localhost,*.local,e.crashlynatics.com
+bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,192.0.0.0/24,192.0.2.0/24,192.88.99.0/24,192.168.0.0/16,198.51.100.0/24,203.0.113.0/24,224.0.0.0/4,255.255.255.255/32
+
+[Proxy]
+
+[Remote Proxy]
+
+[Proxy Chain]
+
+[Proxy Group]
+节点选择 = select,自动选择,手动切换,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
+手动切换 = select,全球节点过滤,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
+自动选择 = url-test,全球节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning(2).png
+苹果服务 = select,DIRECT,香港节点,节点选择,手动切换,台湾节点,日本节点,狮城节点,美国节点,德国节点,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/apple(1).png
+巴哈姆特 = select,香港节点,节点选择,手动切换,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/bahamute.png
+声田音乐 = select,台湾节点,节点选择,手动切换,香港节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
+人工智能 = select,节点选择,手动切换,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/App-Icon/ChatGPT.png
+全球加速 = select,节点选择,手动切换,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(1).png
+兜底分流 = select,节点选择,手动切换,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/dog.png
+香港节点 = url-test,香港节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/HongKong.png
+台湾节点 = url-test,台湾节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Taiwan.png
+日本节点 = url-test,日本节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Japan.png
+狮城节点 = url-test,狮城节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Singapore.png
+美国节点 = url-test,美国节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/UnitedStates.png
+德国节点 = url-test,德国节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Germany.png
+
+[Remote Filter]
+香港节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇭🇰|香港|(\b(HK|HKG|Hong)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+台湾节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇹🇼|台湾|(\b(TW|TWN|Tai|Taiwan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+日本节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|JPN|Japan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+狮城节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|SGP|Singapore)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+美国节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|USA|United States)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+德国节点过滤=NameRegex, FilterKey="^(?=.*((?i)🇩🇪|德国|(\b(DE|DEU|Germany)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$"
+全球节点过滤=NameRegex, FilterKey="^(?=.*(.))(?!.*((?i)群|邀请|返利|循环|官网|客服|网站|网址|获取|订阅|流量|到期|机场|下次|版本|官址|备用|过期|已用|联系|邮箱|工单|贩卖|通知|倒卖|防止|国内|地址|频道|无法|说明|使用|提示|特别|访问|支持|教程|关注|更新|作者|加入|超时|收藏|福利|邀请|好友|失联|(\b(USE|USED|TOTAL|EXPIRE|EMAIL|Panel|Channel|Author|Traffic)(\d+)?\b|(\d{4}-\d{2}-\d{2}|\dG)))).*$"
+
+[Rule]
+#Type:DOMAIN-SUFFIX,DOMAIN,DOMAIN-KEYWORD,USER-AGENT,URL-REGEX,IP-CIDR
+#Strategy:DIRECT,PROXY,REJECT
+#Options:no-resolve(only for IP-CIDR,IP-CIDR2,GEOIP,IP-ASN)
+IP-CIDR,28.0.0.1/8,DIRECT
+IP-CIDR,198.18.0.1/16,DIRECT
+IP-CIDR,198.18.0.0/15,DIRECT
+IP-CIDR6,fc00::/18,DIRECT
+FINAL,兜底分流
+
+[Remote Rule]
+https://rule.kelee.one/Loon/Apple.lsr, policy=苹果服务, tag=苹果服务, enabled=true
+https://rule.kelee.one/Loon/Bahamut.lsr, policy=巴哈姆特, tag=巴哈姆特, enabled=true
+https://rule.kelee.one/Loon/Spotify.lsr, policy=声田音乐, tag=声田音乐, enabled=true
+https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=人工智能, tag=人工智能, enabled=true
+https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER.lsr, policy=DIRECT, tag=LAN, enabled=true
+https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
+
+[Rewrite]
+
+[Script]
+
+[Plugin]
+# 可前往 https://hub.kelee.one 安装
+
+[Mitm]
+ca-p12 = 
+ca-passphrase = 
+skip-server-cert-verify = false
