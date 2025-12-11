@@ -61,12 +61,12 @@ IP-CIDR6,fc00::/18,DIRECT
 FINAL,兜底分流
 
 [Remote Rule]
-https://rule.kelee.one/Loon/Apple.lsr,policy=苹果服务,tag=苹果服务,enabled=true
-https://rule.kelee.one/Loon/Bahamut.lsr,policy=巴哈姆特,tag=巴哈姆特,enabled=true
-https://rule.kelee.one/Loon/Spotify.lsr,policy=声田音乐,tag=声田音乐,enabled=true
-https://kelee.one/Tool/Loon/Lsr/AI.lsr,policy=人工智能,tag=人工智能,enabled=true
-https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER.lsr,policy=DIRECT,tag=LAN,enabled=true
-https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr,policy=DIRECT,tag=CN REGION,enabled=true
+https://rule.kelee.one/Loon/Apple.lsr, policy=苹果服务, tag=苹果服务, enabled=true
+https://rule.kelee.one/Loon/Bahamut.lsr, policy=巴哈姆特, tag=巴哈姆特, enabled=true
+https://rule.kelee.one/Loon/Spotify.lsr, policy=声田音乐, tag=声田音乐, enabled=true
+https://kelee.one/Tool/Loon/Lsr/AI.lsr, policy=人工智能, tag=人工智能, enabled=true
+https://kelee.one/Tool/Loon/Lsr/LAN_SPLITTER.lsr, policy=DIRECT, tag=LAN, enabled=true
+https://kelee.one/Tool/Loon/Lsr/REGION_SPLITTER.lsr, policy=DIRECT, tag=CN REGION, enabled=true
 
 [Rewrite]
 
