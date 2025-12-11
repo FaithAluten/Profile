@@ -20,7 +20,7 @@ proxy-groups:
   - name: 自动选择
     type: url-test
     include-all: true
-    filter: "^(?!.*(剩余|到期)).*$"
+    filter: '^(?!.*(剩余|到期)).*$'
     url: 'http://www.google.com/blank.html'
     interval: 600
     tolerance: 50
