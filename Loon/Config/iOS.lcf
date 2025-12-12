@@ -61,6 +61,9 @@ IP-CIDR6,fc00::/18,DIRECT
 FINAL,兜底分流
 
 [Remote Rule]
+https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Loon/Rule/Direct.lsr, policy=DIRECT, tag=Liqiye_Direct, enabled=true
+https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Loon/Rule/GFW.lsr, policy=全球加速, tag=Liqiye_GFW, enabled=true
+https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Loon/Rule/Block.lsr, policy=REJECT, tag=Liqiye_Block, enabled=true
 https://rule.kelee.one/Loon/Apple.lsr, policy=苹果服务, tag=苹果服务, enabled=true
 https://rule.kelee.one/Loon/Bahamut.lsr, policy=巴哈姆特, tag=巴哈姆特, enabled=true
 https://rule.kelee.one/Loon/Spotify.lsr, policy=声田音乐, tag=声田音乐, enabled=true
