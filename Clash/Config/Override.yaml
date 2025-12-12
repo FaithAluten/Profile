@@ -3,7 +3,7 @@ proxy-groups:
     type: select
     proxies:
       - 自动选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -13,7 +13,7 @@ proxy-groups:
       - DIRECT
       - REJECT
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
-  - name: 手动切换
+  - name: 手动选择
     type: select
     include-all: true
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
@@ -30,7 +30,7 @@ proxy-groups:
     proxies:
       - 香港节点
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 台湾节点
       - 日本节点
       - 狮城节点
@@ -44,7 +44,7 @@ proxy-groups:
     proxies:
       - 台湾节点
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 日本节点
       - 狮城节点
@@ -57,7 +57,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -72,7 +72,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -85,7 +85,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -100,7 +100,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -114,7 +114,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -128,7 +128,7 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -141,7 +141,7 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动切换
+      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
