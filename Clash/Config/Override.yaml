@@ -149,7 +149,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/dog.png
+    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/nyamedia-emby.png
   - name: 香港节点
     type: url-test
     include-all: true
