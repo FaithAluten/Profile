@@ -208,6 +208,13 @@ rule-providers:
     interval: 3600
     format: yaml
     type: http
+  Liqiye_Block:
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Clash/Rule/Block.yaml
+    path: ./ruleset/Liqiye_Block.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
   Lan:
     url: https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml
     path: ./ruleset/Lan.yaml
@@ -331,6 +338,7 @@ rule-providers:
 rules:
   - RULE-SET,Liqiye_Direct,DIRECT
   - RULE-SET,Liqiye_GFW,全球加速
+  - RULE-SET,Liqiye_Block,REJECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Proxy,全球加速
