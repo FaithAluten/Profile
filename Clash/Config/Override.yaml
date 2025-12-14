@@ -307,7 +307,7 @@ rule-providers:
     format: yaml
     type: http
   AppleID:
-    url: https://kelee.one/Tool/Clash/Rule/AppleID.yaml
+    url: https://kelee.one/Tool/Clash/Rule/AppleAccount.yaml
     path: ./ruleset/AppleID.yaml
     behavior: classical
     interval: 3600
@@ -321,7 +321,7 @@ rule-providers:
     format: yaml
     type: http
   TestFlight:
-    url: https://kelee.one/Tool/Clash/Rule/TestFlight.yaml
+    url: https://rule.kelee.one/Clash/TestFlight.yaml
     path: ./ruleset/TestFlight.yaml
     behavior: classical
     interval: 3600
