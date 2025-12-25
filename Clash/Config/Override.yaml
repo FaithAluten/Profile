@@ -195,21 +195,21 @@ proxy-groups:
 
 rule-providers:
   Liqiye_Direct:
-    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Clash/Rule/Direct.txt
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/Direct.txt
     path: ./ruleset/Liqiye_Direct.yaml
     behavior: classical
     interval: 3600
     format: text
     type: http
   Liqiye_GFW:
-    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Clash/Rule/GFW.txt
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/GFW.txt
     path: ./ruleset/Liqiye_GFW.yaml
     behavior: classical
     interval: 3600
     format: text
     type: http
   Liqiye_Block:
-    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Clash/Rule/Block.txt
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/Block.txt
     path: ./ruleset/Liqiye_Block.yaml
     behavior: classical
     interval: 3600
