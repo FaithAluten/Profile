@@ -11,11 +11,11 @@ proxy-groups:
       - 德国节点
       - DIRECT
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/vmssrNotice.png
   - name: 手动选择
     type: select
     include-all: true
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/rocket(1).png
   - name: 巴哈姆特
     type: select
     proxies:
@@ -28,7 +28,7 @@ proxy-groups:
       - 德国节点
       - DIRECT
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/bahamute.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/bahamute.png
   - name: 声田音乐
     type: select
     proxies:
@@ -41,7 +41,7 @@ proxy-groups:
       - 德国节点
       - DIRECT
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/spotify(green).png
   - name: 人工智能
     type: select
     proxies:
@@ -54,7 +54,7 @@ proxy-groups:
       - 德国节点
       - DIRECT
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/chatgpt(white).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/chatgpt(white).png
   - name: 游戏平台
     type: select
     proxies:
@@ -67,7 +67,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/game.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/game.png
   - name: 全球加速
     type: select
     proxies:
@@ -80,7 +80,7 @@ proxy-groups:
       - 德国节点
       - DIRECT
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/quanqiu(1).png
   - name: 苹果账户
     type: select
     proxies:
@@ -93,7 +93,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/apple(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/apple(1).png
   - name: 苹果商店
     type: select
     proxies:
@@ -106,7 +106,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/AppStore(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/AppStore(1).png
   - name: 苹果测试
     type: select
     proxies:
@@ -119,7 +119,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - REJECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/testflight(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/testflight(1).png
   - name: 兜底分流
     type: select
     proxies:
@@ -131,49 +131,49 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - DIRECT
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/nyamedia-emby.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/nyamedia-emby.png
   - name: 香港节点
     type: url-test
     include-all: true
     filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|HKG|Hong)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Hongkong.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Hongkong.png
   - name: 台湾节点
     type: url-test
     include-all: true
     filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|TWN|Tai|Taiwan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/taiwan(3).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/taiwan(3).png
   - name: 日本节点
     type: url-test
     include-all: true
     filter: '^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|JPN|Japan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/zl-icon-jp-flag.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/zl-icon-jp-flag.png
   - name: 狮城节点
     type: url-test
     include-all: true
     filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|SGP|Singapore)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/singapore(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/singapore(1).png
   - name: 美国节点
     type: url-test 
     include-all: true
     filter: '^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|USA|United States)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/US.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/US.png
   - name: 德国节点
     type: url-test
     include-all: true
     filter: '^(?=.*((?i)🇩🇪|德国|(\b(DE|DEU|Germany)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
     interval: 600
     tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/Germany(1).png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Germany(1).png
 
 rule-providers:
   Liqiye_Direct:
