@@ -30,13 +30,12 @@ bypass-tun = 10.0.0.0/8,100.64.0.0/10,127.0.0.0/8,169.254.0.0/16,172.16.0.0/12,1
 [Proxy Group]
 节点选择 = select,自动选择,手动选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/vmssrNotice.png
 手动选择 = select,全球节点过滤,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
-自动选择 = url-test,全球节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning(2).png
-苹果服务 = select,DIRECT,香港节点,节点选择,手动选择,台湾节点,日本节点,狮城节点,美国节点,德国节点,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/apple(1).png
-巴哈姆特 = select,香港节点,节点选择,手动选择,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/bahamute.png
-声田音乐 = select,台湾节点,节点选择,手动选择,香港节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
-人工智能 = select,节点选择,手动选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/App-Icon/ChatGPT.png
-全球加速 = select,节点选择,手动选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(1).png
-兜底分流 = select,节点选择,手动选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/nyamedia-emby.png
+苹果服务 = select,DIRECT,香港节点,节点选择,台湾节点,日本节点,狮城节点,美国节点,德国节点,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/apple(1).png
+巴哈姆特 = select,香港节点,节点选择,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/bahamute.png
+声田音乐 = select,台湾节点,节点选择,香港节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/spotify(green).png
+人工智能 = select,节点选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/App-Icon/ChatGPT.png
+全球加速 = select,节点选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/quanqiu(1).png
+兜底分流 = select,节点选择,香港节点,台湾节点,日本节点,狮城节点,美国节点,德国节点,DIRECT,REJECT,img-url = https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/nyamedia-emby.png
 香港节点 = url-test,香港节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/HongKong.png
 台湾节点 = url-test,台湾节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Taiwan.png
 日本节点 = url-test,日本节点过滤,interval = 600,tolerance = 50,img-url = https://raw.githubusercontent.com/sooyaaabo/Loon/main/Icon/Flag-Icon/Japan.png
