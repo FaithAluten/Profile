@@ -2,7 +2,6 @@ proxy-groups:
   - name: 节点选择
     type: select
     proxies:
-      - 自动选择
       - 手动选择
       - 香港节点
       - 台湾节点
