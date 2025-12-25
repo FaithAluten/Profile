@@ -221,6 +221,7 @@ rule-providers:
     behavior: classical
     interval: 3600
     format: text
+    type: http
   Lan:
     url: https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml
     path: ./ruleset/Lan.yaml
