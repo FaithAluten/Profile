@@ -17,20 +17,11 @@ proxy-groups:
     type: select
     include-all: true
     icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/rocket(1).png
-  - name: 自动选择
-    type: url-test
-    include-all: true
-    filter: '^(?!.*(剩余|到期)).*$'
-    url: 'http://www.google.com/blank.html'
-    interval: 600
-    tolerance: 50
-    icon: https://raw.githubusercontent.com/lige47/QuanX-icon-rule/main/icon/lightning(2).png
   - name: 巴哈姆特
     type: select
     proxies:
       - 香港节点
       - 节点选择
-      - 手动选择
       - 台湾节点
       - 日本节点
       - 狮城节点
@@ -44,7 +35,6 @@ proxy-groups:
     proxies:
       - 台湾节点
       - 节点选择
-      - 手动选择
       - 香港节点
       - 日本节点
       - 狮城节点
@@ -57,7 +47,6 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -72,7 +61,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -85,7 +73,6 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -100,7 +87,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -114,7 +100,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -128,7 +113,6 @@ proxy-groups:
     proxies:
       - DIRECT
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
@@ -141,7 +125,6 @@ proxy-groups:
     type: select
     proxies:
       - 节点选择
-      - 手动选择
       - 香港节点
       - 台湾节点
       - 日本节点
