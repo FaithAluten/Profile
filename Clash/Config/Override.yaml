@@ -215,6 +215,12 @@ rule-providers:
     interval: 3600
     format: yaml
     type: http
+  sogouinput:
+    url: https://ruleset.skk.moe/Clash/non_ip/sogouinput.txt
+    path: ./ruleset/sogouinput.txt
+    behavior: classical
+    interval: 3600
+    format: text
   Lan:
     url: https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml
     path: ./ruleset/Lan.yaml
@@ -339,6 +345,7 @@ rules:
   - RULE-SET,Liqiye_Direct,DIRECT
   - RULE-SET,Liqiye_GFW,全球加速
   - RULE-SET,Liqiye_Block,REJECT
+  - RULE-SET,sogouinput,REJECT
   - RULE-SET,Lan,DIRECT
   - RULE-SET,Direct,DIRECT
   - RULE-SET,Proxy,全球加速
