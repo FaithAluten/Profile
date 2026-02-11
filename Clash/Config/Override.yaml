@@ -176,6 +176,13 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Germany(1).png
 
 rule-providers:
+  fake_ip_filter:
+    url: https://cdn.jsdelivr.net/gh/juewuy/ShellCrash@dev/public/fake_ip_filter.list
+    path: ./ruleset/fake_ip_filter.list
+    behavior: domain
+    interval: 3600
+    format: text
+    type: http
   Liqiye_Direct:
     url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/Direct.txt
     path: ./ruleset/Liqiye_Direct.yaml
