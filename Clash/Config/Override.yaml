@@ -176,7 +176,7 @@ proxy-groups:
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Germany(1).png
 
 rule-providers:
-  fake_ip_filter:
+  Fake_IP_Filter:
     url: https://cdn.jsdelivr.net/gh/juewuy/ShellCrash@dev/public/fake_ip_filter.list
     path: ./ruleset/fake_ip_filter.list
     behavior: domain
