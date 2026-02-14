@@ -259,7 +259,7 @@
       }
     ],
     "final": "🐟 漏网之鱼",
-    "default_domain_resolver": {"server": "Aliyun"}
+    "default_domain_resolver": {"server": "aliyun"}
   },
   "experimental": {
     "cache_file": {
