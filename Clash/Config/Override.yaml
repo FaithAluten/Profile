@@ -71,7 +71,6 @@ proxy-groups:
   - name: Google
     type: select
     proxies:
-      - DIRECT
       - 节点选择
       - 香港节点
       - 台湾节点
@@ -79,12 +78,12 @@ proxy-groups:
       - 狮城节点
       - 美国节点
       - 德国节点
+      - DIRECT
       - REJECT
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/google(1).png  
   - name: 游戏平台
     type: select
     proxies:
-      - DIRECT
       - 节点选择
       - 香港节点
       - 台湾节点
@@ -92,6 +91,7 @@ proxy-groups:
       - 狮城节点
       - 美国节点
       - 德国节点
+      - DIRECT
       - REJECT
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/game.png 
   - name: 全球加速
