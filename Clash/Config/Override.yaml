@@ -55,6 +55,32 @@ proxy-groups:
       - DIRECT
       - REJECT
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/chatgpt(white).png
+  - name: YouTube
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/youtube.png
+  - name: Google
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/google(1).png  
   - name: 游戏平台
     type: select
     proxies:
@@ -67,7 +93,7 @@ proxy-groups:
       - 美国节点
       - 德国节点
       - REJECT
-    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/game.png
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/game.png 
   - name: 全球加速
     type: select
     proxies:
@@ -267,6 +293,20 @@ rule-providers:
     interval: 3600
     format: yaml
     type: http
+  YouTube:
+    url: https://rule.kelee.one/Clash/YouTube.yaml
+    path: ./ruleset/Game.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Google:
+    url: https://rule.kelee.one/Clash/Google.yaml
+    path: ./ruleset/Game.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
   Steam:
     url: https://rule.kelee.one/Clash/Steam.yaml
     path: ./ruleset/Steam.yaml
@@ -344,6 +384,8 @@ rules:
   - RULE-SET,Bahamut,巴哈姆特
   - RULE-SET,Spotify,声田音乐
   - RULE-SET,AI,人工智能
+  - RULE-SET,YouTube,YouTube
+  - RULE-SET,Google,Google
   - RULE-SET,Steam,全球加速
   - RULE-SET,Game,游戏平台
   - RULE-SET,iCloudChina,DIRECT
