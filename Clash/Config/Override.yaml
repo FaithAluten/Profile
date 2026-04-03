@@ -58,7 +58,6 @@ proxy-groups:
   - name: YouTube
     type: select
     proxies:
-      - DIRECT
       - 节点选择
       - 香港节点
       - 台湾节点
@@ -66,6 +65,7 @@ proxy-groups:
       - 狮城节点
       - 美国节点
       - 德国节点
+      - DIRECT
       - REJECT
     icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/youtube.png
   - name: Google
