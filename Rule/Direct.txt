@@ -13,3 +13,4 @@ DOMAIN-SUFFIX,kodiplayer.cn
 DOMAIN-SUFFIX,kodiplayer.cn
 DOMAIN-SUFFIX,open.cd
 DOMAIN-SUFFIX,expreview.com
+DOMAIN-SUFFIX,biligame.net
