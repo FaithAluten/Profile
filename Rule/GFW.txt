@@ -12,4 +12,4 @@ DOMAIN-SUFFIX,acgrip.com
 DOMAIN-SUFFIX,popgo.org
 DOMAIN-SUFFIX,acgnx.se
 DOMAIN,kp.m-team.cc
-DOMAIN,komari-document.pages.dev
+DOMAIN-SUFFIX,pages.dev
