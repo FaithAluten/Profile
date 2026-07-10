@@ -253,7 +253,7 @@ rule-providers:
 ## 路由规则
 rules:
   - RULE-SET,Liqiye_Direct,DIRECT
-  - RULE-SET,Liqiye_GFW,美国节点
+  - RULE-SET,Liqiye_GFW,全球加速
   - RULE-SET,Liqiye_Block,REJECT
   - RULE-SET,sogouinput,REJECT
   - RULE-SET,Lan,DIRECT
