@@ -16,7 +16,7 @@ ipv6: true
 find-process-mode: strict
 # 外部控制 (API)
 external-controller: 127.0.0.1:9090
-secret: "2CgZhmBzgVg8xNjHuDpZ"
+secret: ""
 # 外部用户界面
 external-ui: ./ui
 external-ui-name: ui
