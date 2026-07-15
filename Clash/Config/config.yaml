@@ -20,7 +20,7 @@ secret: ""
 # 外部用户界面
 external-ui: ./ui
 external-ui-name: ui
-external-ui-url: "https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
+external-ui-url: "https://gh-proxy.org/https://github.com/Zephyruso/zashboard/archive/refs/heads/gh-pages.zip"
 # 缓存
 profile:
   store-selected: true
