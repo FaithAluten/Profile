@@ -98,9 +98,9 @@ NodeParam: &NodeParam {type: http, interval: 3600, health-check: {enable: true, 
 # 锚点 - 时延优选参数 [每 6 秒一次惰性健康检查，容差 20ms，时延超过 2 秒判定为失败，失败 3 次则自动触发健康检查]
 UrlTest: &UrlTest {type: url-test, interval: 6, tolerance: 20, lazy: true, url: 'http://www.google.com/blank.html', disable-udp: false, timeout: 2000, max-failed-times: 3, hidden: true, include-all-providers: true}
 # 锚点 - 规则参数 [每小时更新一次订阅规则，更新规则时使用直连策略]
-RuleProvidersText: &RuleProvidersText {type: http, behavior: classical, interval: 3600, format: text, proxy: DIRECT}
-RuleProvidersYaml: &RuleProvidersYaml {type: http, behavior: classical, interval: 3600, format: yaml, proxy: DIRECT}
-RuleProvidersDomain: &RuleProvidersDomain {type: http, behavior: domain, interval: 3600, format: text, proxy: DIRECT}
+RuleProvidersText: &RuleProvidersText {type: http, behavior: classical, interval: 3600, format: text, proxy: 节点选择}
+RuleProvidersYaml: &RuleProvidersYaml {type: http, behavior: classical, interval: 3600, format: yaml, proxy: 节点选择}
+RuleProvidersDomain: &RuleProvidersDomain {type: http, behavior: domain, interval: 3600, format: text, proxy: 节点选择}
 # 锚点 - 节点筛选组
 FilterHK: &FilterHK '^(?=.*((?i)🇭🇰|香港|(\b(HK|HKG|Hong)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
 FilterJP: &FilterJP '^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|JPN|Japan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
