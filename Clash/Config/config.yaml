@@ -11,7 +11,7 @@ mode: rule
 # 日志级别
 log-level: info
 # IPv6
-ipv6: false
+ipv6: true
 # 进程匹配模式
 find-process-mode: strict
 # 外部控制 (API)
