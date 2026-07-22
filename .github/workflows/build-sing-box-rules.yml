@@ -223,6 +223,13 @@ jobs:
 
               rule_type, value = text.split(",", 1)
               rule_type = rule_type.strip().upper()
+
+              # sing-box 无法按 HTTP User-Agent 路由。
+              # 只明确跳过该类型，其他未知类型继续报错，避免静默生成错误规则。
+              if rule_type == "USER-AGENT":
+                print(f"Skipped unsupported USER-AGENT rule: {source}")
+                return None
+
               value = split_option(value)
 
               if not value:
