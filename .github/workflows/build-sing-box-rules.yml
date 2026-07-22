@@ -104,16 +104,15 @@ jobs:
           RULE_SET_VERSION = 4
 
           LOCAL_RULES = {
-              "Block": Path("Rule/Block.txt"),
-              "Direct": Path("Rule/Direct.txt"),
-              "GFW": Path("Rule/GFW.txt"),
+              "Liqiye_Block": Path("Rule/Block.txt"),
+              "Liqiye_Direct": Path("Rule/Direct.txt"),
+              "Liqiye_GFW": Path("Rule/GFW.txt"),
           }
 
           # (输出文件名, 远程地址)
-          # Direct.yaml 使用 Kelee_Direct，避免覆盖本地 Direct.txt 生成的 Direct.srs。
           REMOTE_RULES = {
               "LAN_SPLITTER": "https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml",
-              "Kelee_Direct": "https://kelee.one/Tool/Clash/Rule/Direct.yaml",
+              "Direct": "https://kelee.one/Tool/Clash/Rule/Direct.yaml",
               "Proxy": "https://kelee.one/Tool/Clash/Rule/Proxy.yaml",
               "ChinaDownloadCDN": "https://kelee.one/Tool/Clash/Rule/ChinaDownloadCDN.yaml",
               "InternationalDownloadCDN": "https://kelee.one/Tool/Clash/Rule/InternationalDownloadCDN.yaml",
