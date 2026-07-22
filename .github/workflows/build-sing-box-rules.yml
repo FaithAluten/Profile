@@ -1,0 +1,205 @@
+name: Build sing-box SRS rules
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - "Rule/Block.txt"
+      - "Rule/Direct.txt"
+      - "Rule/GFW.txt"
+      - ".github/workflows/build-sing-box-rules.yml"
+
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: build-sing-box-rules-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    env:
+      SING_BOX_VERSION: "1.13.14"
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Download sing-box
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          archive="sing-box-${SING_BOX_VERSION}-linux-amd64.tar.gz"
+          url="https://github.com/SagerNet/sing-box/releases/download/v${SING_BOX_VERSION}/${archive}"
+
+          curl -fsSL "$url" -o "$archive"
+          tar -xzf "$archive"
+
+          mkdir -p .bin
+
+          install -m 0755 \
+            "sing-box-${SING_BOX_VERSION}-linux-amd64/sing-box" \
+            .bin/sing-box
+
+          echo "$PWD/.bin" >> "$GITHUB_PATH"
+
+          .bin/sing-box version
+
+      - name: Convert TXT rules to sing-box source JSON
+        shell: python
+        run: |
+          import json
+          from pathlib import Path
+
+          names = ("Block", "Direct", "GFW")
+
+          # Clash/Surge 规则类型与 sing-box 字段的对应关系
+          type_map = {
+              "DOMAIN": "domain",
+              "DOMAIN-SUFFIX": "domain_suffix",
+              "DOMAIN-KEYWORD": "domain_keyword",
+              "DOMAIN-REGEX": "domain_regex",
+              "IP-CIDR": "ip_cidr",
+              "IP-CIDR6": "ip_cidr",
+          }
+
+          source_dir = Path("Rule")
+          build_dir = Path("build/sing-box-rules")
+
+          build_dir.mkdir(parents=True, exist_ok=True)
+
+          for name in names:
+              input_file = source_dir / f"{name}.txt"
+
+              buckets = {}
+              seen = {}
+
+              lines = input_file.read_text(
+                  encoding="utf-8-sig"
+              ).splitlines()
+
+              for line_number, raw_line in enumerate(lines, start=1):
+                  line = raw_line.strip()
+
+                  # 忽略空行和注释
+                  if not line or line.startswith(("#", ";", "//")):
+                      continue
+
+                  parts = [
+                      part.strip()
+                      for part in line.split(",")
+                  ]
+
+                  rule_type = parts[0].upper()
+
+                  if rule_type not in type_map:
+                      raise ValueError(
+                          f"{input_file}:{line_number}: "
+                          f"unsupported rule type: {rule_type}"
+                      )
+
+                  if len(parts) < 2 or not parts[1]:
+                      raise ValueError(
+                          f"{input_file}:{line_number}: "
+                          f"invalid rule: {raw_line}"
+                      )
+
+                  # 允许 Clash 中常见的 no-resolve 参数
+                  if len(parts) > 2:
+                      options = {
+                          part.lower()
+                          for part in parts[2:]
+                          if part
+                      }
+
+                      if options - {"no-resolve"}:
+                          raise ValueError(
+                              f"{input_file}:{line_number}: "
+                              f"unsupported options: "
+                              f"{', '.join(parts[2:])}"
+                          )
+
+                  field = type_map[rule_type]
+                  value = parts[1]
+
+                  buckets.setdefault(field, [])
+                  seen.setdefault(field, set())
+
+                  # 自动去除重复规则
+                  if value not in seen[field]:
+                      buckets[field].append(value)
+                      seen[field].add(value)
+
+              if not buckets:
+                  raise ValueError(
+                      f"{input_file}: no usable rules found"
+                  )
+
+              source = {
+                  "version": 4,
+                  "rules": [
+                      {field: values}
+                      for field, values in buckets.items()
+                  ],
+              }
+
+              output_file = build_dir / f"{name}.json"
+
+              output_file.write_text(
+                  json.dumps(
+                      source,
+                      ensure_ascii=False,
+                      indent=2,
+                  ) + "\n",
+                  encoding="utf-8",
+              )
+
+              print(f"Generated {output_file}")
+
+      - name: Compile SRS files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p sing-box/Rule
+
+          for name in Block Direct GFW; do
+            sing-box rule-set compile \
+              --output "sing-box/Rule/${name}.srs" \
+              "build/sing-box-rules/${name}.json"
+          done
+
+          ls -lh sing-box/Rule/*.srs
+
+      - name: Commit generated SRS files
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          git config user.name "github-actions[bot]"
+          git config user.email \
+            "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add \
+            sing-box/Rule/Block.srs \
+            sing-box/Rule/Direct.srs \
+            sing-box/Rule/GFW.srs
+
+          if git diff --cached --quiet; then
+            echo "SRS files are already up to date."
+            exit 0
+          fi
+
+          git commit -m "chore: update sing-box rule sets"
+          git push
