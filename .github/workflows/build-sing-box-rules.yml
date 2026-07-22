@@ -10,6 +10,10 @@ on:
       - "Rule/GFW.txt"
       - ".github/workflows/build-sing-box-rules.yml"
 
+  schedule:
+    # 每 6 小时检查一次远程规则；UTC 时间
+    - cron: "17 */6 * * *"
+
   workflow_dispatch:
 
 permissions:
@@ -29,11 +33,16 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: "3.x"
+
+      - name: Install Python dependencies
+        run: python -m pip install --disable-pip-version-check requests PyYAML
 
       - name: Download sing-box
         shell: bash
@@ -43,129 +52,252 @@ jobs:
           archive="sing-box-${SING_BOX_VERSION}-linux-amd64.tar.gz"
           url="https://github.com/SagerNet/sing-box/releases/download/v${SING_BOX_VERSION}/${archive}"
 
-          curl -fsSL "$url" -o "$archive"
+          curl -fsSL --retry 5 --retry-all-errors "$url" -o "$archive"
           tar -xzf "$archive"
 
           mkdir -p .bin
-
           install -m 0755 \
             "sing-box-${SING_BOX_VERSION}-linux-amd64/sing-box" \
             .bin/sing-box
 
           echo "$PWD/.bin" >> "$GITHUB_PATH"
-
           .bin/sing-box version
 
-      - name: Convert TXT rules to sing-box source JSON
+      - name: Convert local TXT and remote YAML rules
         shell: python
         run: |
           import json
+          import re
+          import time
           from pathlib import Path
 
-          names = ("Block", "Direct", "GFW")
+          import requests
+          import yaml
+          from requests.adapters import HTTPAdapter
+          from urllib3.util.retry import Retry
 
-          # Clash/Surge 规则类型与 sing-box 字段的对应关系
-          type_map = {
+          RULE_SET_VERSION = 4
+
+          LOCAL_RULES = {
+              "Block": Path("Rule/Block.txt"),
+              "Direct": Path("Rule/Direct.txt"),
+              "GFW": Path("Rule/GFW.txt"),
+          }
+
+          # (输出文件名, 远程地址)
+          # Direct.yaml 使用 Kelee_Direct，避免覆盖本地 Direct.txt 生成的 Direct.srs。
+          REMOTE_RULES = {
+              "LAN_SPLITTER": "https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml",
+              "Kelee_Direct": "https://kelee.one/Tool/Clash/Rule/Direct.yaml",
+              "Proxy": "https://kelee.one/Tool/Clash/Rule/Proxy.yaml",
+              "ChinaDownloadCDN": "https://kelee.one/Tool/Clash/Rule/ChinaDownloadCDN.yaml",
+              "InternationalDownloadCDN": "https://kelee.one/Tool/Clash/Rule/InternationalDownloadCDN.yaml",
+              "Bahamut": "https://rule.kelee.one/Clash/Bahamut.yaml",
+              "Spotify": "https://rule.kelee.one/Clash/Spotify.yaml",
+              "AI": "https://kelee.one/Tool/Clash/Rule/AI.yaml",
+              "Steam": "https://rule.kelee.one/Clash/Steam.yaml",
+              "Game": "https://kelee.one/Tool/Clash/Rule/Game.yaml",
+              "iCloudChina": "https://kelee.one/Tool/Clash/Rule/iCloudChina.yaml",
+              "ApplePushNotificationService": "https://kelee.one/Tool/Clash/Rule/ApplePushNotificationService.yaml",
+              "AppleSoftwareUpdates": "https://kelee.one/Tool/Clash/Rule/AppleSoftwareUpdates.yaml",
+              "AppleAccount": "https://kelee.one/Tool/Clash/Rule/AppleAccount.yaml",
+              "AppStore": "https://kelee.one/Tool/Clash/Rule/AppStore.yaml",
+              "TestFlight": "https://rule.kelee.one/Clash/TestFlight.yaml",
+              "ESET_China": "https://kelee.one/Tool/Clash/Rule/ESET_China.yaml",
+          }
+
+          FIELD_MAP = {
               "DOMAIN": "domain",
               "DOMAIN-SUFFIX": "domain_suffix",
               "DOMAIN-KEYWORD": "domain_keyword",
               "DOMAIN-REGEX": "domain_regex",
               "IP-CIDR": "ip_cidr",
               "IP-CIDR6": "ip_cidr",
+              "SRC-IP-CIDR": "source_ip_cidr",
+              "PROCESS-NAME": "process_name",
+              "PROCESS-PATH": "process_path",
+              "PROCESS-PATH-REGEX": "process_path_regex",
+              "PACKAGE-NAME": "package_name",
           }
 
-          source_dir = Path("Rule")
           build_dir = Path("build/sing-box-rules")
-
+          download_dir = Path("build/remote-yaml")
           build_dir.mkdir(parents=True, exist_ok=True)
+          download_dir.mkdir(parents=True, exist_ok=True)
 
-          for name in names:
-              input_file = source_dir / f"{name}.txt"
+          def make_session():
+              retry = Retry(
+                  total=4,
+                  connect=4,
+                  read=4,
+                  status=4,
+                  backoff_factor=2,
+                  status_forcelist=(408, 425, 429, 500, 502, 503, 504),
+                  allowed_methods=frozenset(("GET",)),
+                  raise_on_status=False,
+              )
+              session = requests.Session()
+              session.mount("https://", HTTPAdapter(max_retries=retry))
+              session.headers.update({
+                  "User-Agent": "clash.meta/1.19.0",
+                  "Accept": "application/yaml,text/yaml,text/plain,*/*",
+                  "Referer": "https://kelee.one/",
+              })
+              return session
 
-              buckets = {}
-              seen = {}
+          session = make_session()
 
-              lines = input_file.read_text(
-                  encoding="utf-8-sig"
-              ).splitlines()
+          def split_option(text):
+              """移除 Clash 规则末尾常见的 no-resolve 参数。"""
+              value = text.strip()
+              if value.lower().endswith(",no-resolve"):
+                  value = value[: -len(",no-resolve")].rstrip()
+              return value
 
-              for line_number, raw_line in enumerate(lines, start=1):
-                  line = raw_line.strip()
+          def parse_ports(value, source):
+              ports = []
+              ranges = []
 
-                  # 忽略空行和注释
-                  if not line or line.startswith(("#", ";", "//")):
+              for item in re.split(r"[/|]", value):
+                  item = item.strip()
+                  if not item:
                       continue
 
-                  parts = [
-                      part.strip()
-                      for part in line.split(",")
-                  ]
-
-                  rule_type = parts[0].upper()
-
-                  if rule_type not in type_map:
-                      raise ValueError(
-                          f"{input_file}:{line_number}: "
-                          f"unsupported rule type: {rule_type}"
-                      )
-
-                  if len(parts) < 2 or not parts[1]:
-                      raise ValueError(
-                          f"{input_file}:{line_number}: "
-                          f"invalid rule: {raw_line}"
-                      )
-
-                  # 允许 Clash 中常见的 no-resolve 参数
-                  if len(parts) > 2:
-                      options = {
-                          part.lower()
-                          for part in parts[2:]
-                          if part
-                      }
-
-                      if options - {"no-resolve"}:
+                  if "-" in item or ":" in item:
+                      item = item.replace("-", ":")
+                      if not re.fullmatch(r"\d*:\d*", item):
+                          raise ValueError(f"{source}: invalid port range: {item}")
+                      ranges.append(item)
+                  else:
+                      try:
+                          port = int(item)
+                      except ValueError as error:
                           raise ValueError(
-                              f"{input_file}:{line_number}: "
-                              f"unsupported options: "
-                              f"{', '.join(parts[2:])}"
-                          )
+                              f"{source}: invalid port: {item}"
+                          ) from error
 
-                  field = type_map[rule_type]
-                  value = parts[1]
+                      if not 0 <= port <= 65535:
+                          raise ValueError(f"{source}: port out of range: {port}")
+                      ports.append(port)
 
-                  buckets.setdefault(field, [])
-                  seen.setdefault(field, set())
+              if not ports and not ranges:
+                  raise ValueError(f"{source}: empty port rule")
 
-                  # 自动去除重复规则
-                  if value not in seen[field]:
-                      buckets[field].append(value)
-                      seen[field].add(value)
+              return ports, ranges
 
-              if not buckets:
-                  raise ValueError(
-                      f"{input_file}: no usable rules found"
-                  )
+          def parse_rule(raw_rule, source):
+              if not isinstance(raw_rule, str):
+                  raise TypeError(f"{source}: rule is not a string: {raw_rule!r}")
 
-              source = {
-                  "version": 4,
-                  "rules": [
-                      {field: values}
-                      for field, values in buckets.items()
-                  ],
-              }
+              text = raw_rule.strip()
+              if not text or text.startswith(("#", ";", "//")):
+                  return None
 
-              output_file = build_dir / f"{name}.json"
+              if "," not in text:
+                  raise ValueError(f"{source}: invalid classical rule: {text}")
 
-              output_file.write_text(
+              rule_type, value = text.split(",", 1)
+              rule_type = rule_type.strip().upper()
+              value = split_option(value)
+
+              if not value:
+                  raise ValueError(f"{source}: empty rule value: {text}")
+
+              if rule_type in FIELD_MAP:
+                  return {FIELD_MAP[rule_type]: [value]}
+
+              if rule_type == "NETWORK":
+                  network = value.lower()
+                  if network not in {"tcp", "udp", "icmp"}:
+                      raise ValueError(f"{source}: unsupported network: {value}")
+                  return {"network": [network]}
+
+              if rule_type in {"DST-PORT", "SRC-PORT"}:
+                  ports, ranges = parse_ports(value, source)
+                  result = {}
+
+                  if rule_type == "DST-PORT":
+                      if ports:
+                          result["port"] = ports
+                      if ranges:
+                          result["port_range"] = ranges
+                  else:
+                      if ports:
+                          result["source_port"] = ports
+                      if ranges:
+                          result["source_port_range"] = ranges
+
+                  return result
+
+              raise ValueError(
+                  f"{source}: unsupported Clash rule type {rule_type!r}. "
+                  "The workflow stops instead of silently producing an incorrect SRS."
+              )
+
+          def build_source(name, raw_rules):
+              rules = []
+              seen = set()
+
+              for line_number, raw_rule in enumerate(raw_rules, start=1):
+                  rule = parse_rule(raw_rule, f"{name}:{line_number}")
+                  if rule is None:
+                      continue
+
+                  key = json.dumps(rule, ensure_ascii=False, sort_keys=True)
+                  if key in seen:
+                      continue
+
+                  seen.add(key)
+                  rules.append(rule)
+
+              if not rules:
+                  raise ValueError(f"{name}: no usable rules found")
+
+              output = build_dir / f"{name}.json"
+              output.write_text(
                   json.dumps(
-                      source,
+                      {"version": RULE_SET_VERSION, "rules": rules},
                       ensure_ascii=False,
                       indent=2,
                   ) + "\n",
                   encoding="utf-8",
               )
+              print(f"Generated {output}: {len(rules)} rules")
 
-              print(f"Generated {output_file}")
+          # 转换仓库内的三个 TXT 文件
+          for output_name, input_path in LOCAL_RULES.items():
+              lines = input_path.read_text(encoding="utf-8-sig").splitlines()
+              build_source(output_name, lines)
+
+          # 下载并转换远程 Clash classical YAML
+          for output_name, url in REMOTE_RULES.items():
+              print(f"Downloading {url}")
+              response = session.get(url, timeout=(20, 180))
+              response.raise_for_status()
+
+              downloaded_file = download_dir / f"{output_name}.yaml"
+              downloaded_file.write_bytes(response.content)
+
+              try:
+                  document = yaml.safe_load(response.content.decode("utf-8-sig"))
+              except (UnicodeDecodeError, yaml.YAMLError) as error:
+                  raise ValueError(f"{url}: invalid YAML") from error
+
+              if not isinstance(document, dict):
+                  raise ValueError(f"{url}: YAML root must be an object")
+
+              payload = document.get("payload")
+              if not isinstance(payload, list):
+                  raise ValueError(f"{url}: missing YAML payload list")
+
+              build_source(output_name, payload)
+              time.sleep(1)
+
+          output_names = [*LOCAL_RULES.keys(), *REMOTE_RULES.keys()]
+          Path("build/output-names.txt").write_text(
+              "\n".join(output_names) + "\n",
+              encoding="utf-8",
+          )
 
       - name: Compile SRS files
         shell: bash
@@ -174,11 +306,13 @@ jobs:
 
           mkdir -p sing-box/Rule
 
-          for name in Block Direct GFW; do
+          while IFS= read -r name; do
+            [ -n "$name" ] || continue
+
             sing-box rule-set compile \
               --output "sing-box/Rule/${name}.srs" \
               "build/sing-box-rules/${name}.json"
-          done
+          done < build/output-names.txt
 
           ls -lh sing-box/Rule/*.srs
 
@@ -191,10 +325,10 @@ jobs:
           git config user.email \
             "41898282+github-actions[bot]@users.noreply.github.com"
 
-          git add \
-            sing-box/Rule/Block.srs \
-            sing-box/Rule/Direct.srs \
-            sing-box/Rule/GFW.srs
+          while IFS= read -r name; do
+            [ -n "$name" ] || continue
+            git add "sing-box/Rule/${name}.srs"
+          done < build/output-names.txt
 
           if git diff --cached --quiet; then
             echo "SRS files are already up to date."
@@ -202,4 +336,7 @@ jobs:
           fi
 
           git commit -m "chore: update sing-box rule sets"
-          git push
+
+          # 定时任务执行期间仓库可能出现新提交，先同步再推送。
+          git pull --rebase origin main
+          git push origin HEAD:main
