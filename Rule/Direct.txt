@@ -10,7 +10,6 @@ DOMAIN-SUFFIX,snssdk.com
 DOMAIN-SUFFIX,2023game.com
 DOMAIN-SUFFIX,wps.com
 DOMAIN-SUFFIX,kodiplayer.cn
-DOMAIN-SUFFIX,kodiplayer.cn
 DOMAIN-SUFFIX,open.cd
 DOMAIN-SUFFIX,expreview.com
 DOMAIN-SUFFIX,biligame.net
