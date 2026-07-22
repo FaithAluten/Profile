@@ -1,0 +1,102 @@
+name: Download Kelee Clash rules
+
+on:
+  workflow_dispatch:
+
+jobs:
+  download:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download Kelee Clash rules
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p downloaded-rules
+
+          cat > /tmp/kelee-rules.txt <<'EOF'
+          LAN_SPLITTER.yaml|https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml
+          Direct.yaml|https://kelee.one/Tool/Clash/Rule/Direct.yaml
+          Proxy.yaml|https://kelee.one/Tool/Clash/Rule/Proxy.yaml
+          ChinaDownloadCDN.yaml|https://kelee.one/Tool/Clash/Rule/ChinaDownloadCDN.yaml
+          InternationalDownloadCDN.yaml|https://kelee.one/Tool/Clash/Rule/InternationalDownloadCDN.yaml
+          Bahamut.yaml|https://rule.kelee.one/Clash/Bahamut.yaml
+          Spotify.yaml|https://rule.kelee.one/Clash/Spotify.yaml
+          AI.yaml|https://kelee.one/Tool/Clash/Rule/AI.yaml
+          Steam.yaml|https://rule.kelee.one/Clash/Steam.yaml
+          Game.yaml|https://kelee.one/Tool/Clash/Rule/Game.yaml
+          iCloudChina.yaml|https://kelee.one/Tool/Clash/Rule/iCloudChina.yaml
+          ApplePushNotificationService.yaml|https://kelee.one/Tool/Clash/Rule/ApplePushNotificationService.yaml
+          AppleSoftwareUpdates.yaml|https://kelee.one/Tool/Clash/Rule/AppleSoftwareUpdates.yaml
+          AppleAccount.yaml|https://kelee.one/Tool/Clash/Rule/AppleAccount.yaml
+          AppStore.yaml|https://kelee.one/Tool/Clash/Rule/AppStore.yaml
+          TestFlight.yaml|https://rule.kelee.one/Clash/TestFlight.yaml
+          ESET_China.yaml|https://kelee.one/Tool/Clash/Rule/ESET_China.yaml
+          EOF
+
+          while IFS='|' read -r filename url; do
+            echo "Downloading: ${filename}"
+
+            output="downloaded-rules/${filename}"
+            temp="${output}.tmp"
+            success=0
+
+            for user_agent in "clash.meta" "mihomo" "Clash"; do
+              rm -f "$temp"
+
+              http_code="$(
+                curl \
+                  --silent \
+                  --show-error \
+                  --location \
+                  --http1.1 \
+                  --connect-timeout 20 \
+                  --max-time 180 \
+                  --retry 4 \
+                  --retry-delay 3 \
+                  --retry-all-errors \
+                  --user-agent "$user_agent" \
+                  --header "Accept: application/yaml,text/yaml,text/plain,*/*" \
+                  --output "$temp" \
+                  --write-out "%{http_code}" \
+                  "$url" || true
+              )"
+
+              echo "User-Agent=${user_agent}, HTTP=${http_code}"
+
+              if [[ "$http_code" == "200" ]] && [[ -s "$temp" ]]; then
+                if ! head -c 2048 "$temp" |
+                  grep -Eqi '<!doctype|<html|access denied|forbidden|request blocked'; then
+                  mv "$temp" "$output"
+                  success=1
+                  break
+                fi
+              fi
+            done
+
+            if [[ "$success" -ne 1 ]]; then
+              echo "::error::Failed to download ${url}"
+
+              if [[ -f "$temp" ]]; then
+                echo "Response preview:"
+                head -c 500 "$temp" || true
+              fi
+
+              exit 1
+            fi
+
+            echo "Saved: ${output} ($(wc -c < "$output") bytes)"
+          done < /tmp/kelee-rules.txt
+
+          echo
+          echo "Downloaded files:"
+          find downloaded-rules -maxdepth 1 -type f -printf '%f\n' | sort
+
+      - name: Upload downloaded rules
+        uses: actions/upload-artifact@v4
+        with:
+          name: kelee-clash-rules
+          path: downloaded-rules/
+          if-no-files-found: error
+          retention-days: 7
