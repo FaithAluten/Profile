@@ -49,18 +49,43 @@ jobs:
         run: |
           set -euo pipefail
 
-          archive="sing-box-${SING_BOX_VERSION}-linux-amd64.tar.gz"
+          case "$(uname -m)" in
+            x86_64|amd64)
+            sing_box_arch="amd64"
+            ;;
+          aarch64|arm64)
+            sing_box_arch="arm64"
+            ;;
+          *)
+            echo "::error::Unsupported architecture: $(uname -m)"
+            exit 1
+            ;;
+          esac
+
+          echo "Runner architecture: $(uname -m)"
+          echo "sing-box architecture: ${sing_box_arch}"
+
+          archive="sing-box-${SING_BOX_VERSION}-linux-${sing_box_arch}.tar.gz"
+          directory="sing-box-${SING_BOX_VERSION}-linux-${sing_box_arch}"
           url="https://github.com/SagerNet/sing-box/releases/download/v${SING_BOX_VERSION}/${archive}"
 
-          curl -fsSL --retry 5 --retry-all-errors "$url" -o "$archive"
+          curl -fsSL \
+            --retry 5 \
+            --retry-all-errors \
+            "$url" \
+            -o "$archive"
+
           tar -xzf "$archive"
 
           mkdir -p .bin
+
           install -m 0755 \
-            "sing-box-${SING_BOX_VERSION}-linux-amd64/sing-box" \
+            "${directory}/sing-box" \
             .bin/sing-box
 
           echo "$PWD/.bin" >> "$GITHUB_PATH"
+
+          file .bin/sing-box
           .bin/sing-box version
 
       - name: Convert local TXT and remote YAML rules
