@@ -1,0 +1,122 @@
+{
+  "log": {
+    "disabled": false,
+    "level": "info",
+    "timestamp": true
+  },
+  "experimental": {
+    "clash_api": {
+      "external_controller": "127.0.0.1:9090",
+      "external_ui": "ui",
+      "secret": "",
+      "external_ui_download_url": "https://gh-proxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip",
+      "external_ui_download_detour": "direct",
+      "default_mode": "rule"
+    },
+  "cache_file": {
+    "enabled": true,
+    "store_fakeip": true,
+    "store_rdrc": true
+    }
+  },
+  "dns": {
+    "strategy": "ipv4_only",
+    "final": "google",
+    "servers": [
+      {"type": "https", "tag": "aliyun", "server": "223.5.5.5"},
+      {"type": "tls", "tag": "google", "server": "8.8.8.8", "detour": "📡 节点选择"}
+    ],
+    "rules": [
+      {"clash_mode": "direct", "action": "route", "server": "aliyun"},
+      {"clash_mode": "global", "action": "route", "server": "google"},
+      {"rule_set": "Liqiye_Block", "action": "reject"},
+      {"rule_set": "geosite-geolocation-cn", "action": "route", "server": "aliyun"},
+      {"type": "logical", "mode": "and", "rules": [{"rule_set": "geosite-geolocation-!cn", "invert": true}, {"rule_set": "geoip-cn"}], "action": "route", "server": "google", "client_subnet": "114.114.114.114/24"}
+    ]
+  },
+  "inbounds": [
+    {
+      "type": "mixed",
+      "tag": "mixed-in",
+      "listen": "0.0.0.0",
+      "listen_port": 8080,
+      "users": [
+        {
+          "username": "sfm",
+          "password": "password"
+        }
+      ]
+    },
+    {
+      "type": "tun",
+      "tag": "tun-in",
+      "address": ["172.18.0.1/30"],
+      "auto_route": true,
+      "strict_route": true
+    }
+  ],
+  "outbounds": [
+    {"type": "direct", "tag": "direct"},
+    {"type": "selector", "tag": "📡 节点选择", "outbounds": ["👆 手动选择", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇸🇬 狮城节点", "🇺🇸 美国节点"]},
+    {"type": "selector", "tag": "👆 手动选择", "outbounds": ["{机场1}"]},
+    {"type": "selector", "tag": "🐉 巴哈姆特", "outbounds": ["🇭🇰 香港节点", "📡 节点选择"]},
+    {"type": "selector", "tag": "🎵 声田音乐", "outbounds": ["📡 节点选择", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇸🇬 狮城节点", "🇺🇸 美国节点"]},
+    {"type": "selector", "tag": "🤖 人工智能", "outbounds": ["📡 节点选择", "{机场1}"]},
+    {"type": "selector", "tag": "🎮 游戏平台", "outbounds": ["direct", "📡 节点选择"]},
+    {"type": "selector", "tag": "🌏 全球加速", "outbounds": ["📡 节点选择", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇸🇬 狮城节点", "🇺🇸 美国节点"]},
+    {"type": "selector", "tag": "👤 苹果账户", "outbounds": ["direct", "📡 节点选择"]},
+    {"type": "selector", "tag": "🛒 苹果商店", "outbounds": ["direct", "📡 节点选择"]},
+    {"type": "selector", "tag": "🛠️ 苹果测试", "outbounds": ["direct", "📡 节点选择"]},
+    {"type": "selector", "tag": "🔀 兜底分流", "outbounds": ["📡 节点选择", "🇭🇰 香港节点", "🇯🇵 日本节点", "🇸🇬 狮城节点", "🇺🇸 美国节点", "direct"]},
+    {"type": "selector", "tag": "🇭🇰 香港节点", "outbounds": ["{机场1}"], "filter": [{"action": "include","keywords": ["🇭🇰|香港|HK|HKG|Hong"]}]},
+    {"type": "selector", "tag": "🇯🇵 日本节点", "outbounds": ["{机场1}"], "filter": [{"action": "include","keywords": ["🇯🇵|日本|川日|东京|大阪|泉日|埼玉|JP|JPN|Japan"]}]},
+    {"type": "selector", "tag": "🇸🇬 狮城节点", "outbounds": ["{机场1}"], "filter": [{"action": "include","keywords": ["🇸🇬|新加坡|狮|SG|SGP|Singapore"]}]},
+    {"type": "selector", "tag": "🇺🇸 美国节点", "outbounds": ["{机场1}"], "filter": [{"action": "include","keywords": ["🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|US|USA|United States"]}]}
+  ],
+  "route": {
+    "final": "🔀 兜底分流",
+    "default_domain_resolver": {"server": "aliyun"},
+    "auto_detect_interface": true,
+    "rules": [
+      {"action": "sniff"},
+      {"type": "logical", "mode": "or", "rules": [{"port": 53}, {"protocol": "dns"}], "action": "hijack-dns"},
+      {"clash_mode": "direct", "action": "route", "outbound": "direct"},
+      {"clash_mode": "global", "action": "route", "outbound": "📡 节点选择"},
+      {"rule_set": "Liqiye_Block", "action": "reject"},
+      {"rule_set": ["Liqiye_Direct", "Lan", "Direct", "ChinaDownloadCDN", "iCloudChina", "ApplePushNotificationService", "AppleSoftwareUpdates", "ESET_China", "geoip-cn"], "action": "route", "outbound": "direct"},
+      {"rule_set": ["Liqiye_GFW", "Proxy", "InternationalDownloadCDN", "Steam"], "action": "route", "outbound": "🌏 全球加速"},
+      {"rule_set": "Bahamut", "action": "route", "outbound": "🐉 巴哈姆特"},
+      {"rule_set": "Spotify", "action": "route", "outbound": "🎵 声田音乐"},
+      {"rule_set": "AI", "action": "route", "outbound": "🤖 人工智能"},
+      {"rule_set": "Game", "action": "route", "outbound": "🎮 游戏平台"},
+      {"rule_set": "AppleID", "action": "route", "outbound": "👤 苹果账户"},
+      {"rule_set": "AppStore", "action": "route", "outbound": "🛒 苹果商店"},
+      {"rule_set": "TestFlight", "action": "route", "outbound": "🛠️ 苹果测试"}
+    ],
+    "rule_set": [
+      {"type": "remote", "tag": "Liqiye_Direct", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Liqiye_Direct.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Liqiye_GFW", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Liqiye_GFW.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Liqiye_Block", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Liqiye_Block.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Lan", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/LAN_SPLITTER.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Direct", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Direct.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Proxy", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Proxy.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "ChinaDownloadCDN", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/ChinaDownloadCDN.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "InternationalDownloadCDN", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/InternationalDownloadCDN.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Bahamut", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Bahamut.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Spotify", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Spotify.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "AI", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/AI.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Steam", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Steam.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "Game", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/Game.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "iCloudChina", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/iCloudChina.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "ApplePushNotificationService", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/ApplePushNotificationService.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "AppleSoftwareUpdates", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/AppleSoftwareUpdates.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "AppleID", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/AppleAccount.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "AppStore", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/AppStore.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "TestFlight", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/TestFlight.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "ESET_China", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/sing-box/Rule/ESET_China.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "geoip-cn", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/SagerNet/sing-geoip/rule-set/geoip-cn.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "geosite-geolocation-cn", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-cn.srs", "download_detour": "direct"},
+      {"type": "remote", "tag": "geosite-geolocation-!cn", "format": "binary", "url": "https://gh-proxy.com/https://raw.githubusercontent.com/SagerNet/sing-geosite/rule-set/geosite-geolocation-!cn.srs", "download_detour": "direct"}
+    ]
+  }
+}
