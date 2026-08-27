@@ -14,3 +14,4 @@ DOMAIN-SUFFIX,open.cd
 DOMAIN-SUFFIX,expreview.com
 DOMAIN-SUFFIX,biligame.net
 DOMAIN,ts.liqiye.com
+DOMAIN-SUFFIX,rednotecdn.com
