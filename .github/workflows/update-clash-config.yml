@@ -1,0 +1,235 @@
+name: Update Clash config
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "Rule/Direct.txt"
+      - "Rule/GFW.txt"
+      - "Rule/Block.txt"
+      - "Clash/Config/Custom/config.yaml"
+      - ".github/workflows/update-clash-config.yml"
+  schedule:
+    # UTC 每 6 小时一次：北京时间 01:17 / 07:17 / 13:17 / 19:17。
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: update-clash-config-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: [self-hosted, linux, ARM64]
+    timeout-minutes: 90
+    steps:
+      - name: Checkout latest main
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
+      - name: Install dependencies
+        run: python -m pip install --disable-pip-version-check requests PyYAML
+
+      - name: Generate and commit config
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            # 若生成期间有新提交，下一轮基于最新 TXT 和配置重新生成。
+            python - <<'PY'
+          #!/usr/bin/env python3
+          """更新现有 Clash 配置中的 fake-ip-filter 和内联 rules。"""
+
+          import json
+          import re
+          import time
+          from pathlib import Path
+
+          import requests
+          import yaml
+          from requests.adapters import HTTPAdapter
+          from urllib3.util.retry import Retry
+
+
+          CONFIG = Path("Clash/Config/Custom/config.yaml")
+          OUTPUT = Path("Clash/Config/Custom/custom.clash.yaml")
+          FAKE_IP_URL = "https://cdn.jsdelivr.net/gh/juewuy/ShellCrash@dev/public/fake_ip_filter.list"
+          LOCAL_RULES = [
+              ("Liqiye_Direct", Path("Rule/Direct.txt"), "DIRECT"),
+              ("Liqiye_GFW", Path("Rule/GFW.txt"), "$app_name"),
+              ("Liqiye_Block", Path("Rule/Block.txt"), "REJECT"),
+          ]
+          # 按用户提供的顺序：先全部 DIRECT，再全部 $app_name。
+          REMOTE_RULES = [
+              ("LAN_SPLITTER", "DIRECT"),
+              ("Direct", "DIRECT"),
+              ("ChinaDownloadCDN", "DIRECT"),
+              ("Game", "DIRECT"),
+              ("iCloudChina", "DIRECT"),
+              ("ApplePushNotificationService", "DIRECT"),
+              ("AppleSoftwareUpdates", "DIRECT"),
+              ("AppleAccount", "DIRECT"),
+              ("AppStore", "DIRECT"),
+              ("TestFlight", "DIRECT"),
+              ("ESET_China", "DIRECT"),
+              ("Proxy", "$app_name"),
+              ("InternationalDownloadCDN", "$app_name"),
+          ]
+
+
+          def make_session():
+              retry = Retry(
+                  total=4,
+                  backoff_factor=2,
+                  status_forcelist=(408, 425, 429, 500, 502, 503, 504),
+                  allowed_methods=frozenset({"GET"}),
+              )
+              session = requests.Session()
+              session.mount("https://", HTTPAdapter(max_retries=retry))
+              session.headers.update({
+                  "User-Agent": "clash.meta/1.19.0",
+                  "Accept": "application/yaml,text/yaml,text/plain,*/*",
+                  "Referer": "https://kelee.one/",
+              })
+              return session
+
+
+          def download(session, url):
+              response = session.get(url, timeout=(20, 180))
+              response.raise_for_status()
+              return response.content.decode("utf-8-sig")
+
+
+          def render_fake_ip(text):
+              lines, values = [], []
+              for raw in text.splitlines():
+                  value = raw.strip()
+                  if not value:
+                      continue
+                  if value.startswith(("#", ";", "//")):
+                      lines.append("    # " + value.lstrip("#;/ "))
+                      continue
+                  if not re.fullmatch(r"[\w.*+_-]+(?: [\w.*+_-]+)*", value):
+                      raise ValueError(f"fake-ip-filter: invalid domain pattern: {value!r}")
+                  values.append(value)
+                  lines.append("    - " + json.dumps(value, ensure_ascii=False))
+              if not values:
+                  raise ValueError("fake-ip-filter: empty upstream list")
+              return lines, values
+
+
+          def with_policy(raw, policy):
+              if not isinstance(raw, str):
+                  raise ValueError(f"Rule is not a string: {raw!r}")
+              rule = raw.strip()
+              if not rule or rule.startswith(("#", ";", "//")):
+                  return None
+              fields = [part.strip() for part in rule.split(",")]
+              if len(fields) < 2 or not all(fields):
+                  raise ValueError(f"Invalid classical rule: {rule!r}")
+              # 保留 no-resolve；策略必须放在它的前面。
+              fields.insert(-1 if fields[-1].lower() == "no-resolve" else len(fields), policy)
+              return ",".join(fields)
+
+
+          def render_rules(name, raw_rules, policy):
+              rules = [rule for raw in raw_rules if (rule := with_policy(raw, policy))]
+              if not rules:
+                  raise ValueError(f"{name}: no usable rules")
+              print(f"{name}: {len(rules)} rules -> {policy}")
+              return [f"  # {name}", *("  - " + json.dumps(rule, ensure_ascii=False) for rule in rules)], rules
+
+
+          def replace_list(text, path, entries):
+              """通过 YAML 节点定位替换范围，不重新序列化其余配置。"""
+              node = yaml.compose(text)
+              for depth, name in enumerate(path):
+                  if not isinstance(node, yaml.MappingNode):
+                      raise ValueError(f"Expected mapping at {path[:depth]}")
+                  for index, (key, value) in enumerate(node.value):
+                      if key.value == name:
+                          break
+                  else:
+                      raise ValueError(f"Missing config key: {'.'.join(path[:depth + 1])}")
+                  if depth < len(path) - 1:
+                      node = value
+                      continue
+                  start = key.start_mark.line
+                  end = (node.value[index + 1][0].start_mark.line
+                         if index + 1 < len(node.value) else node.end_mark.line)
+                  lines = text.splitlines(keepends=True)
+                  replacement = " " * key.start_mark.column + name + ":\n"
+                  replacement += "\n".join(entries) + "\n"
+                  return "".join(lines[:start]) + replacement + "".join(lines[end:])
+
+
+          def main():
+              original = CONFIG.read_text(encoding="utf-8")
+              before = yaml.safe_load(original)
+              with make_session() as session:
+                  fake_lines, fake_values = render_fake_ip(download(session, FAKE_IP_URL))
+                  rule_lines, expected_rules = [], []
+                  for name, path, policy in LOCAL_RULES:
+                      lines, values = render_rules(name, path.read_text(encoding="utf-8-sig").splitlines(), policy)
+                      rule_lines.extend(lines)
+                      expected_rules.extend(values)
+                  for name, policy in REMOTE_RULES:
+                      url = (f"https://rule.kelee.one/Clash/{name}.yaml" if name == "TestFlight"
+                             else f"https://kelee.one/Tool/Clash/Rule/{name}.yaml")
+                      print(f"Downloading {url}", flush=True)
+                      document = yaml.safe_load(download(session, url))
+                      if not isinstance(document, dict) or not isinstance(document.get("payload"), list):
+                          raise ValueError(f"{url}: expected a YAML payload list")
+                      lines, values = render_rules(name, document["payload"], policy)
+                      rule_lines.extend(lines)
+                      expected_rules.extend(values)
+                      time.sleep(1)
+
+              tail = ["GEOIP,CN,DIRECT", "MATCH,$app_name"]
+              rule_lines.extend(["  # 默认规则", *("  - " + item for item in tail)])
+              updated = replace_list(original, ("dns", "fake-ip-filter"), fake_lines)
+              updated = replace_list(updated, ("rules",), rule_lines)
+              after = yaml.safe_load(updated)
+              expected = dict(before)
+              expected["dns"] = {**before["dns"], "fake-ip-filter": fake_values}
+              expected["rules"] = expected_rules + tail
+              if after != expected:
+                  raise ValueError("Generated config validation failed")
+              # 所有下载和校验成功之后才原子替换；失败时不覆盖原配置。
+              if not OUTPUT.exists() or OUTPUT.read_text(encoding="utf-8") != updated:
+                  temporary = OUTPUT.with_suffix(".yaml.tmp")
+                  temporary.write_text(updated, encoding="utf-8")
+                  temporary.replace(OUTPUT)
+              print(f"Updated {OUTPUT}: {len(fake_values)} fake-ip entries, {len(expected_rules) + 2} rules")
+
+
+          if __name__ == "__main__":
+              main()
+          PY
+            git add -- Clash/Config/Custom/custom.clash.yaml
+            if git diff --cached --quiet; then
+              echo "Clash config is already up to date."
+              exit 0
+            fi
+            git commit -m "chore: update Clash config"
+            if git push origin HEAD:main; then
+              exit 0
+            fi
+            git fetch origin main
+            # 只丢弃本轮生成的 bot 提交；checkout 是此任务的专用工作目录。
+            git reset --hard origin/main
+          done
+          echo "::error::Failed to push Clash config after 3 attempts."
+          exit 1
