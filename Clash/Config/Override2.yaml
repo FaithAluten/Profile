@@ -294,7 +294,6 @@ rules:
   - RULE-SET,ChinaDownloadCDN,DIRECT
   - RULE-SET,InternationalDownloadCDN,全球加速
   - RULE-SET,Spotify,声田音乐
-  - RULE-SET,AI,人工智能
   - RULE-SET,Steam,全球加速
   - RULE-SET,Game,游戏平台
   - RULE-SET,iCloudChina,DIRECT
