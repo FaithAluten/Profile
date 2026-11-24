@@ -1,0 +1,308 @@
+proxy-groups:
+  - name: 节点选择
+    type: select
+    proxies:
+      - 手动选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - DIRECT
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/vmssrNotice.png
+  - name: 手动选择
+    type: select
+    include-all: true
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/rocket(1).png
+  - name: 声田音乐
+    type: select
+    proxies:
+      - 台湾节点
+      - 节点选择
+      - 香港节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - DIRECT
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/spotify(green).png
+  - name: 游戏平台
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - DIRECT
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/game.png 
+  - name: 全球加速
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - DIRECT
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/quanqiu(1).png
+  - name: 苹果账户
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/apple(1).png
+  - name: 苹果商店
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/AppStore(1).png
+  - name: 苹果测试
+    type: select
+    proxies:
+      - DIRECT
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - REJECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/testflight(1).png
+  - name: 兜底分流
+    type: select
+    proxies:
+      - 节点选择
+      - 香港节点
+      - 台湾节点
+      - 日本节点
+      - 狮城节点
+      - 美国节点
+      - 德国节点
+      - DIRECT
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/nyamedia-emby.png
+  - name: 香港节点
+    type: url-test
+    include-all: true
+    filter: '^(?=.*((?i)🇭🇰|香港|(\b(HK|HKG|Hong)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Hongkong.png
+  - name: 台湾节点
+    type: url-test
+    include-all: true
+    filter: '^(?=.*((?i)🇹🇼|台湾|(\b(TW|TWN|Tai|Taiwan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/taiwan(3).png
+  - name: 日本节点
+    type: url-test
+    include-all: true
+    filter: '^(?=.*((?i)🇯🇵|日本|川日|东京|大阪|泉日|埼玉|(\b(JP|JPN|Japan)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/zl-icon-jp-flag.png
+  - name: 狮城节点
+    type: url-test
+    include-all: true
+    filter: '^(?=.*((?i)🇸🇬|新加坡|狮|(\b(SG|SGP|Singapore)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/singapore(1).png
+  - name: 美国节点
+    type: url-test 
+    include-all: true
+    filter: '^(?=.*((?i)🇺🇸|美国|波特兰|达拉斯|俄勒冈|凤凰城|费利蒙|硅谷|拉斯维加斯|洛杉矶|圣何塞|圣克拉拉|西雅图|芝加哥|(\b(US|USA|United States)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/US.png
+  - name: 德国节点
+    type: url-test
+    include-all: true
+    filter: '^(?=.*((?i)🇩🇪|德国|(\b(DE|DEU|Germany)(\d+)?\b)))(?!.*((?i)回国|校园|游戏|🎮|(\b(GAME)\b))).*$'
+    interval: 600
+    tolerance: 50
+    icon: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Icons/Germany(1).png
+
+rule-providers:
+  Fake_IP_Filter:
+    url: https://cdn.jsdelivr.net/gh/juewuy/ShellCrash@dev/public/fake_ip_filter.list
+    path: ./ruleset/fake_ip_filter.list
+    behavior: domain
+    interval: 3600
+    format: text
+    type: http
+  Liqiye_Direct:
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/Direct.txt
+    path: ./ruleset/Liqiye_Direct.yaml
+    behavior: classical
+    interval: 3600
+    format: text
+    type: http
+  Liqiye_GFW:
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/GFW.txt
+    path: ./ruleset/Liqiye_GFW.yaml
+    behavior: classical
+    interval: 3600
+    format: text
+    type: http
+  Liqiye_Block:
+    url: https://raw.githubusercontent.com/FaithAluten/Profile/refs/heads/main/Rule/Block.txt
+    path: ./ruleset/Liqiye_Block.yaml
+    behavior: classical
+    interval: 3600
+    format: text
+    type: http
+  Lan:
+    url: https://kelee.one/Tool/Clash/Rule/LAN_SPLITTER.yaml
+    path: ./ruleset/Lan.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Direct:
+    url: https://kelee.one/Tool/Clash/Rule/Direct.yaml
+    path: ./ruleset/Direct.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Proxy:
+    url: https://kelee.one/Tool/Clash/Rule/Proxy.yaml
+    path: ./ruleset/Proxy.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  ChinaDownloadCDN:
+    url: https://kelee.one/Tool/Clash/Rule/ChinaDownloadCDN.yaml
+    path: ./ruleset/ChinaDownloadCDN.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  InternationalDownloadCDN:
+    url: https://kelee.one/Tool/Clash/Rule/InternationalDownloadCDN.yaml
+    path: ./ruleset/InternationalDownloadCDN.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Spotify:
+    url: https://rule.kelee.one/Clash/Spotify.yaml
+    path: ./ruleset/Spotify.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Steam:
+    url: https://rule.kelee.one/Clash/Steam.yaml
+    path: ./ruleset/Steam.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  Game:
+    url: https://kelee.one/Tool/Clash/Rule/Game.yaml
+    path: ./ruleset/Game.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  iCloudChina:
+    url: https://kelee.one/Tool/Clash/Rule/iCloudChina.yaml
+    path: ./ruleset/iCloudChina.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  ApplePushNotificationService:
+    url: https://kelee.one/Tool/Clash/Rule/ApplePushNotificationService.yaml
+    path: ./ruleset/ApplePushNotificationService.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  AppleSoftwareUpdates:
+    url: https://kelee.one/Tool/Clash/Rule/AppleSoftwareUpdates.yaml
+    path: ./ruleset/AppleSoftwareUpdates.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  AppleID:
+    url: https://kelee.one/Tool/Clash/Rule/AppleAccount.yaml
+    path: ./ruleset/AppleID.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  AppStore:
+    url: https://kelee.one/Tool/Clash/Rule/AppStore.yaml
+    path: ./ruleset/AppStore.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  TestFlight:
+    url: https://rule.kelee.one/Clash/TestFlight.yaml
+    path: ./ruleset/TestFlight.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+  ESET_China:
+    url: https://kelee.one/Tool/Clash/Rule/ESET_China.yaml
+    path: ./ruleset/ESET_China.yaml
+    behavior: classical
+    interval: 3600
+    format: yaml
+    type: http
+
+rules:
+  - RULE-SET,Liqiye_Direct,DIRECT
+  - RULE-SET,Liqiye_GFW,全球加速
+  - RULE-SET,Liqiye_Block,REJECT
+  - RULE-SET,Lan,DIRECT
+  - RULE-SET,Direct,DIRECT
+  - RULE-SET,Proxy,全球加速
+  - RULE-SET,ChinaDownloadCDN,DIRECT
+  - RULE-SET,InternationalDownloadCDN,全球加速
+  - RULE-SET,Spotify,声田音乐
+  - RULE-SET,AI,人工智能
+  - RULE-SET,Steam,全球加速
+  - RULE-SET,Game,游戏平台
+  - RULE-SET,iCloudChina,DIRECT
+  - RULE-SET,ApplePushNotificationService,DIRECT
+  - RULE-SET,AppleSoftwareUpdates,DIRECT
+  - RULE-SET,AppleID,苹果账户
+  - RULE-SET,AppStore,苹果商店
+  - RULE-SET,TestFlight,苹果测试
+  - RULE-SET,ESET_China,DIRECT
+  - GEOIP,CN,DIRECT
+  - MATCH,兜底分流
