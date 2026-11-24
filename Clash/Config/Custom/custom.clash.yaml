@@ -279,6 +279,7 @@ rules:
   - "DOMAIN-SUFFIX,acgnx.se,$app_name"
   - "DOMAIN,kp.m-team.cc,$app_name"
   - "DOMAIN-SUFFIX,pages.dev,$app_name"
+  - "DOMAIN,electronics.sony.com,$app_name"
   # Liqiye_Block
   - "DOMAIN-SUFFIX,lanjie100.com,REJECT"
   # LAN_SPLITTER
